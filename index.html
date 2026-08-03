@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>J'sn Design — Jason Tello</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -21,9 +21,11 @@
 --text-muted-light:#7A6E67;
 --border-dark:rgba(250,248,246,0.07);
 --border-light:#E2D8D0;
+--font-sans:'Mulish',sans-serif;
+--font-quote:'Fraunces',Georgia,serif;
 }
 html{scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;overflow-x:hidden;background:var(--warm-white);}
+body{font-family:var(--font-sans);overflow-x:hidden;background:var(--warm-white);}
 
 /* NAV */
 nav{
@@ -38,7 +40,7 @@ backdrop-filter:blur(12px);
 .nav-logo{height:28px;display:block;}
 .nav-links{display:flex;gap:3rem;list-style:none;}
 .nav-links a{
-font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;
+font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;
 color:var(--text-muted-light);text-decoration:none;transition:color 0.3s;
 }
 .nav-links a:hover{color:var(--accent);}
@@ -56,7 +58,7 @@ background:radial-gradient(ellipse at 65% 40%, rgba(172,49,16,0.05) 0%, transpar
 pointer-events:none;
 }
 .hero-eyebrow{
-font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;
+font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;
 color:var(--accent);margin-bottom:2.5rem;
 display:flex;align-items:center;gap:1.2rem;
 opacity:0;animation:fadeIn 1s ease forwards 0.3s;
@@ -76,7 +78,7 @@ margin-top:2rem;display:flex;align-items:center;
 opacity:0;animation:fadeIn 1s ease forwards 1.2s;
 }
 .desc{
-font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;
+font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;
 color:var(--text-muted-light);
 padding:0 1.8rem;border-right:1px solid var(--border-light);
 }
@@ -97,13 +99,13 @@ opacity:0;animation:fadeIn 1s ease forwards 1.4s;
 }
 .hero-philosophy{
 max-width:520px;
-font-family:'Cormorant Garamond',serif;
-font-size:1.15rem;font-weight:300;font-style:italic;
-line-height:1.75;color:var(--text-muted-light);
+font-family:var(--font-quote);
+font-size:1.3rem;font-weight:300;font-style:italic;
+line-height:1.65;color:var(--text-muted-light);
 }
 .hero-actions{display:flex;flex-direction:column;align-items:flex-end;gap:1rem;}
 .btn-hero{
-font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;
+font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;
 color:var(--warm-white);text-decoration:none;
 padding:1rem 2.5rem;
 background:var(--charcoal);
@@ -119,7 +121,7 @@ background:var(--accent);transition:left 0.4s cubic-bezier(0.16,1,0.3,1);
 .btn-hero:hover{border-color:var(--accent);}
 .btn-hero span{position:relative;z-index:1;}
 .scroll-hint{
-font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
+font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;
 color:var(--text-muted-light);opacity:0.5;
 }
 
@@ -135,13 +137,13 @@ border-top:1px solid var(--border-dark);
 position:relative;
 }
 .phil-num{
-font-family:'Cormorant Garamond',serif;
-font-size:7rem;font-weight:300;
-color:rgba(250,248,246,0.03);
+font-family:var(--font-sans);
+font-size:7rem;font-weight:200;
+color:rgba(250,248,246,0.04);
 line-height:1;margin-bottom:-1.5rem;
 }
 .phil-text{
-font-family:'Cormorant Garamond',serif;
+font-family:var(--font-quote);
 font-size:clamp(2rem,4vw,3.5rem);
 font-weight:300;line-height:1.3;
 color:var(--warm-white);
@@ -151,7 +153,7 @@ max-width:900px;
 .phil-aside{
 position:absolute;right:4rem;top:50%;transform:translateY(-50%);
 max-width:200px;
-font-size:0.78rem;line-height:1.9;
+font-size:0.78rem;line-height:1.9;font-weight:400;
 color:var(--text-muted-dark);
 border-left:2px solid var(--accent);
 padding-left:1.5rem;
@@ -161,85 +163,55 @@ padding-left:1.5rem;
 .work{background:var(--warm-white);padding:8rem 4rem;}
 .section-header{
 display:flex;justify-content:space-between;align-items:baseline;
-margin-bottom:5rem;padding-bottom:1.5rem;
+margin-bottom:3.5rem;padding-bottom:1.5rem;
 border-bottom:1px solid var(--border-light);
 }
-.section-label{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);}
-.section-sub{font-family:'Cormorant Garamond',serif;font-size:0.95rem;color:var(--text-muted-light);}
+.section-label{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;color:var(--accent);}
+.section-sub{font-family:var(--font-sans);font-size:0.8rem;font-weight:500;letter-spacing:0.06em;color:var(--text-muted-light);}
 
-/* WORK GRID */
-.work-cards{
-display:grid;
-grid-template-columns:1.4fr 1fr;
-grid-template-rows:auto auto;
-gap:1.5rem;
-}
-.work-card{
-position:relative;overflow:hidden;cursor:pointer;
-background:var(--warm-grey);
-}
-.work-card.featured{grid-row:span 2;}
-.work-card img{
-width:100%;height:100%;
-object-fit:cover;display:block;
-transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);
-min-height:260px;
-}
-.work-card.featured img{min-height:560px;}
-.work-card:hover img{transform:scale(1.04);}
-.card-overlay{
-position:absolute;top:0;left:0;right:0;bottom:0;
-background:linear-gradient(to top,rgba(28,35,41,0.82) 0%,transparent 55%);
-display:flex;flex-direction:column;justify-content:flex-end;
-padding:2rem;
-}
-.card-tag{
-font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;
-color:var(--accent-light);margin-bottom:0.5rem;display:block;
-}
-.card-title{
-font-family:'Cormorant Garamond',serif;
-font-size:1.5rem;font-weight:300;
-color:var(--warm-white);transition:color 0.3s;
-}
-.work-card:hover .card-title{color:var(--accent-light);}
-.card-arrow{
-position:absolute;top:1.5rem;right:1.5rem;
-width:36px;height:36px;
-border:1px solid rgba(250,248,246,0.3);
-display:flex;align-items:center;justify-content:center;
-font-size:0.9rem;color:var(--warm-white);
-opacity:0;transform:translateY(-6px);
-transition:opacity 0.3s,transform 0.3s;
-}
-.work-card:hover .card-arrow{opacity:1;transform:translateY(0);}
-
-/* WORK LIST */
-.work-list{margin-top:1.5rem;}
-.work-row{
-display:grid;grid-template-columns:60px 1fr auto 40px;
-align-items:center;gap:3rem;
-padding:2rem 0;
-border-bottom:1px solid var(--border-light);
-cursor:pointer;
-transition:padding-left 0.4s cubic-bezier(0.16,1,0.3,1);
+/* WORK — ACCORDION (Option B: persistent logo sliver) */
+.acc{margin-top:0.5rem;}
+.acc-item{border-top:1px solid var(--border-light);}
+.acc-item:last-child{border-bottom:1px solid var(--border-light);}
+.acc-head{
+display:grid;grid-template-columns:56px 40px 1fr auto 40px;
+align-items:center;gap:2rem;
+padding:1.7rem 0.4rem;cursor:pointer;
 position:relative;overflow:hidden;
+transition:padding-left 0.4s cubic-bezier(0.16,1,0.3,1);
 }
-.work-row:first-child{border-top:1px solid var(--border-light);}
-.work-row::before{
-content:'';position:absolute;top:0;left:-100%;right:0;bottom:0;
-background:var(--accent-pale);
-transition:left 0.5s cubic-bezier(0.16,1,0.3,1);
+.acc-head::before{content:'';position:absolute;top:0;left:-100%;right:0;bottom:0;background:var(--accent-pale);transition:left 0.5s cubic-bezier(0.16,1,0.3,1);z-index:0;}
+.acc-head:hover::before{left:0;}
+.acc-head:hover{padding-left:1rem;}
+.acc-head>*{position:relative;z-index:1;}
+.acc-logo{
+width:56px;height:56px;border-radius:8px;background:#fff;border:1px solid var(--border-light);
+display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;
 }
-.work-row:hover::before{left:0;}
-.work-row:hover{padding-left:0.8rem;}
-.row-num{font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--text-muted-light);position:relative;}
-.row-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--text-dark);transition:color 0.3s;position:relative;}
-.work-row:hover .row-title{color:var(--accent);}
-.row-meta{display:flex;flex-direction:column;gap:0.3rem;position:relative;}
-.row-tag{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted-light);}
-.row-arrow{font-size:1rem;color:var(--accent);opacity:0;transform:translateX(-10px);transition:opacity 0.3s,transform 0.3s;position:relative;text-align:right;}
-.work-row:hover .row-arrow{opacity:1;transform:translateX(0);}
+.acc-logo img{width:100%;height:100%;object-fit:contain;padding:7px;}
+.acc-logo span{font-size:0.72rem;font-weight:800;letter-spacing:0.03em;color:var(--accent);}
+.acc-num{font-size:0.85rem;font-weight:500;color:var(--text-muted-light);}
+.acc-title{font-family:var(--font-sans);font-size:2rem;font-weight:300;color:var(--text-dark);letter-spacing:-0.015em;transition:color 0.3s;}
+.acc-head:hover .acc-title{color:var(--accent);}
+.acc-meta{display:flex;flex-direction:column;gap:0.35rem;text-align:right;}
+.acc-tag{font-size:0.62rem;letter-spacing:0.13em;text-transform:uppercase;font-weight:500;color:var(--text-muted-light);}
+.acc-chev{color:var(--accent);text-align:right;display:flex;justify-content:flex-end;transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);}
+.acc-item.open .acc-chev{transform:rotate(180deg);}
+.acc-panel{max-height:0;overflow:hidden;transition:max-height 0.6s cubic-bezier(0.16,1,0.3,1);}
+.acc-item.open .acc-panel{max-height:1200px;}
+.acc-panel-inner{padding:0.8rem 0.4rem 3rem 3.5rem;}
+.acc-images{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+.acc-img{aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:var(--warm-grey);border:1px solid var(--border-light);}
+.acc-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);}
+.acc-img:hover img{transform:scale(1.05);}
+.acc-img.is-logo{background:#fff;}
+.acc-img.is-logo img{object-fit:contain;padding:1.6rem;}
+.acc-img.placeholder{display:flex;align-items:center;justify-content:center;}
+.acc-img.placeholder span{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;color:var(--text-muted-light);}
+.acc-cta-row{margin-top:1.8rem;}
+.acc-cta{font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:0.4rem;transition:letter-spacing 0.3s;}
+.acc-cta:hover{letter-spacing:0.22em;}
+.acc-soon{font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;color:var(--text-muted-light);}
 
 /* ABOUT — WARM GREY */
 .about{
@@ -247,17 +219,17 @@ background:var(--warm-grey);padding:8rem 4rem;
 display:grid;grid-template-columns:1fr 1fr;gap:8rem;
 align-items:center;border-top:1px solid var(--border-light);
 }
-.about-eyebrow{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;display:block;}
+.about-eyebrow{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;color:var(--accent);margin-bottom:2rem;display:block;}
 .about-rule{width:40px;height:2px;background:var(--accent);margin-bottom:2rem;}
-.about-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,3.5vw,3rem);font-weight:300;line-height:1.2;color:var(--text-dark);margin-bottom:2rem;}
-.about-heading em{color:var(--accent);font-style:italic;}
-.about-body{font-size:0.88rem;line-height:2;color:var(--text-muted-light);margin-bottom:1.2rem;}
+.about-heading{font-family:var(--font-sans);font-size:clamp(2.2rem,3.5vw,3rem);font-weight:300;line-height:1.15;letter-spacing:-0.015em;color:var(--text-dark);margin-bottom:2rem;}
+.about-heading em{color:var(--accent);font-style:italic;font-weight:400;}
+.about-body{font-size:0.92rem;line-height:1.95;font-weight:400;color:var(--text-muted-light);margin-bottom:1.2rem;}
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 3rem;margin-top:3rem;padding-top:2.5rem;border-top:1px solid var(--border-light);}
-.stat-n{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--accent);line-height:1;}
-.stat-l{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted-light);margin-top:0.4rem;}
+.stat-n{font-family:var(--font-sans);font-size:2.8rem;font-weight:300;color:var(--accent);line-height:1;letter-spacing:-0.02em;}
+.stat-l{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;color:var(--text-muted-light);margin-top:0.4rem;}
 .about-photo{aspect-ratio:3/4;background:var(--warm-mid);position:relative;overflow:hidden;border:1px solid var(--border-light);}
 .about-photo-inner{width:100%;height:100%;min-height:460px;display:flex;align-items:center;justify-content:center;}
-.about-photo-inner span{font-size:0.7rem;letter-spacing:0.14em;color:var(--text-muted-light);text-transform:uppercase;}
+.about-photo-inner span{font-size:0.7rem;letter-spacing:0.14em;font-weight:500;color:var(--text-muted-light);text-transform:uppercase;}
 .photo-accent{position:absolute;bottom:-1.5rem;right:-1.5rem;width:55%;aspect-ratio:1;border:1px solid var(--accent);opacity:0.2;pointer-events:none;}
 
 /* AWARDS — CHARCOAL */
@@ -269,16 +241,16 @@ border-top:1px solid var(--border-dark);
 .award{padding:1.5rem 2rem;border-right:1px solid var(--border-dark);}
 .award:first-child{padding-left:0;}
 .award:last-child{border-right:none;}
-.award-yr{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:0.8rem;display:block;}
-.award-nm{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;color:var(--warm-white);line-height:1.4;}
+.award-yr{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:var(--accent);margin-bottom:0.8rem;display:block;}
+.award-nm{font-family:var(--font-sans);font-size:1.05rem;font-weight:400;color:var(--warm-white);line-height:1.4;}
 
 /* FOOTER */
 footer{background:#0A0F13;padding:3rem 4rem;display:flex;justify-content:space-between;align-items:center;}
 .foot-sig{height:24px;opacity:0.35;display:block;}
 .foot-links{display:flex;gap:2.5rem;list-style:none;}
-.foot-links a{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(250,248,246,0.25);text-decoration:none;transition:color 0.2s;}
+.foot-links a{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;color:rgba(250,248,246,0.25);text-decoration:none;transition:color 0.2s;}
 .foot-links a:hover{color:var(--accent-light);}
-.foot-loc{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(250,248,246,0.12);}
+.foot-loc{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;color:rgba(250,248,246,0.12);}
 
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease;}
@@ -295,8 +267,12 @@ nav{padding:1.2rem 1.5rem;}
 .philosophy{padding:6rem 1.5rem;}
 .phil-aside{display:none;}
 .work{padding:5rem 1.5rem;}
-.work-cards{grid-template-columns:1fr;}
-.work-card.featured{grid-row:span 1;}
+.acc-head{grid-template-columns:44px 1fr 28px;gap:1rem;padding:1.3rem 0.2rem;}
+.acc-num{display:none;}
+.acc-meta{display:none;}
+.acc-title{font-size:1.45rem;}
+.acc-panel-inner{padding:0.6rem 0.2rem 2rem;}
+.acc-images{grid-template-columns:1fr 1fr;gap:0.8rem;}
 .about{grid-template-columns:1fr;gap:3rem;padding:5rem 1.5rem;}
 .awards{grid-template-columns:1fr 1fr;padding:3rem 1.5rem;}
 footer{flex-direction:column;gap:2rem;text-align:center;padding:2rem 1.5rem;}
@@ -362,52 +338,77 @@ footer{flex-direction:column;gap:2rem;text-align:center;padding:2rem 1.5rem;}
     <span class="section-sub">03 case studies</span>
   </div>
 
-  <div class="work-cards reveal">
-    <div class="work-card featured">
-      <img src="images/baileys_steps.jpg" alt="My Landscaping Project — Bailey's Steps">
-      <div class="card-overlay">
-        <span class="card-tag">Brand Identity · 11 Years</span>
-        <h2 class="card-title">My Landscaping Project</h2>
-      </div>
-      <div class="card-arrow">→</div>
-    </div>
-    <div class="work-card">
-      <img src="images/mlp_project_02.jpg" alt="MLP Project">
-      <div class="card-overlay">
-        <span class="card-tag">Hardscape Design</span>
-        <h2 class="card-title">Craft in Action</h2>
-      </div>
-      <div class="card-arrow">→</div>
-    </div>
-    <div class="work-card">
-      <img src="images/mlp_project_03.jpg" alt="MLP Project">
-      <div class="card-overlay">
-        <span class="card-tag">Design · Build · Care</span>
-        <h2 class="card-title">The MLP Standard</h2>
-      </div>
-      <div class="card-arrow">→</div>
-    </div>
-  </div>
+  <div class="acc reveal">
 
-  <div class="work-list reveal">
-    <div class="work-row">
-      <span class="row-num">02</span>
-      <h2 class="row-title">Vid Converts</h2>
-      <div class="row-meta">
-        <span class="row-tag">SaaS Brand · Product UI</span>
-        <span class="row-tag">AI Platform · 93× ROI</span>
+    <div class="acc-item open">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="acc-logo"><img src="images/mlp_logo.jpg" alt="My Landscaping Project logo"></div>
+        <span class="acc-num">01</span>
+        <h2 class="acc-title">My Landscaping Project</h2>
+        <div class="acc-meta">
+          <span class="acc-tag">Brand identity · Design-build</span>
+          <span class="acc-tag">11 Years · GTA</span>
+        </div>
+        <span class="acc-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
       </div>
-      <span class="row-arrow">→</span>
-    </div>
-    <div class="work-row">
-      <span class="row-num">03</span>
-      <h2 class="row-title">KALMA · 34</h2>
-      <div class="row-meta">
-        <span class="row-tag">Health Tech · App Brand</span>
-        <span class="row-tag">UI · UX · Science-Grounded</span>
+      <div class="acc-panel">
+        <div class="acc-panel-inner">
+          <div class="acc-images">
+            <div class="acc-img"><img src="images/baileys_steps.jpg" alt="MLP design and build — composite and stone hardscape"></div>
+            <div class="acc-img is-logo"><img src="images/mlp_logo.jpg" alt="My Landscaping Project logo"></div>
+            <div class="acc-img"><img src="images/truck_wrap.jpg" alt="My Landscaping Project vehicle wrap design"></div>
+          </div>
+          <div class="acc-cta-row"><a href="mlp.html" class="acc-cta">Explore the full project →</a></div>
+        </div>
       </div>
-      <span class="row-arrow">→</span>
     </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="acc-logo"><span>VC</span></div>
+        <span class="acc-num">02</span>
+        <h2 class="acc-title">Vid Converts</h2>
+        <div class="acc-meta">
+          <span class="acc-tag">SaaS brand · Product UI</span>
+          <span class="acc-tag">AI platform · 93× ROI</span>
+        </div>
+        <span class="acc-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+      </div>
+      <div class="acc-panel">
+        <div class="acc-panel-inner">
+          <div class="acc-images">
+            <div class="acc-img placeholder"><span>Product UI</span></div>
+            <div class="acc-img placeholder"><span>Brand system</span></div>
+            <div class="acc-img placeholder"><span>Coming soon</span></div>
+          </div>
+          <div class="acc-cta-row"><span class="acc-soon">Case study in progress</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <div class="acc-logo"><span>K34</span></div>
+        <span class="acc-num">03</span>
+        <h2 class="acc-title">KALMA · 34</h2>
+        <div class="acc-meta">
+          <span class="acc-tag">Health tech · App brand</span>
+          <span class="acc-tag">UI · UX · Science-grounded</span>
+        </div>
+        <span class="acc-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+      </div>
+      <div class="acc-panel">
+        <div class="acc-panel-inner">
+          <div class="acc-images">
+            <div class="acc-img placeholder"><span>App UI</span></div>
+            <div class="acc-img placeholder"><span>Brand identity</span></div>
+            <div class="acc-img placeholder"><span>Coming soon</span></div>
+          </div>
+          <div class="acc-cta-row"><span class="acc-soon">Case study in progress</span></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -454,6 +455,7 @@ footer{flex-direction:column;gap:2rem;text-align:center;padding:2rem 1.5rem;}
 </footer>
 
 <script>
+function toggleAcc(head){head.parentElement.classList.toggle('open');}
 const io=new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}
 }),{threshold:0.1});
