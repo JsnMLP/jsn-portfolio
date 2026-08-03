@@ -37,7 +37,7 @@ background:rgba(250,248,246,0.95);
 border-bottom:1px solid var(--border-light);
 backdrop-filter:blur(12px);
 }
-.nav-logo{height:28px;display:block;}
+.nav-logo{height:30px;display:block;}
 .nav-links{display:flex;gap:3rem;list-style:none;}
 .nav-links a{
 font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;
@@ -45,42 +45,35 @@ color:var(--text-muted-light);text-decoration:none;transition:color 0.3s;
 }
 .nav-links a:hover{color:var(--accent);}
 
-/* HERO — WARM WHITE */
+/* HERO — WARM WHITE, TWO COLUMN */
 .hero{
 min-height:100vh;background:var(--warm-white);
-display:flex;flex-direction:column;justify-content:center;
-padding:10rem 4rem 6rem;
+display:grid;grid-template-columns:1.05fr 0.9fr;gap:4.5rem;align-items:center;
+padding:9rem 4rem 5rem;
 position:relative;overflow:hidden;
 }
 .hero-bg{
 position:absolute;top:0;left:0;right:0;bottom:0;
-background:radial-gradient(ellipse at 65% 40%, rgba(172,49,16,0.05) 0%, transparent 60%);
+background:radial-gradient(ellipse at 70% 45%, rgba(172,49,16,0.05) 0%, transparent 60%);
 pointer-events:none;
 }
+.hero-text{position:relative;z-index:2;opacity:0;transform:translateY(20px);animation:fadeUp 1s ease forwards 0.3s;}
+.hero-portrait{position:relative;z-index:2;opacity:0;animation:fadeIn 1.3s ease forwards 0.55s;}
+.hero-portrait img{display:block;width:100%;max-width:500px;height:auto;margin:0 auto;border-radius:2px;}
 .hero-eyebrow{
-font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;
+font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;
 color:var(--accent);margin-bottom:2.5rem;
 display:flex;align-items:center;gap:1.2rem;
-opacity:0;animation:fadeIn 1s ease forwards 0.3s;
 }
-.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--accent);}
-
-.hero-sig{
-height:clamp(70px,12vw,140px);
-display:block;
-margin-bottom:1.5rem;
-opacity:0;
-animation:fadeIn 1.2s ease forwards 0.5s;
-}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--accent);flex-shrink:0;}
 
 .hero-descriptors{
-margin-top:2rem;display:flex;align-items:center;
-opacity:0;animation:fadeIn 1s ease forwards 1.2s;
+margin-top:2rem;display:flex;align-items:center;flex-wrap:wrap;row-gap:0.6rem;
 }
 .desc{
-font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;
+font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;
 color:var(--text-muted-light);
-padding:0 1.8rem;border-right:1px solid var(--border-light);
+padding:0 1.15rem;border-right:1px solid var(--border-light);
 }
 .desc:first-child{padding-left:0;}
 .desc:last-child{border-right:none;}
@@ -88,22 +81,17 @@ padding:0 1.8rem;border-right:1px solid var(--border-light);
 .hero-rule{
 width:100%;height:1px;
 background:linear-gradient(to right,var(--accent) 0%,transparent 70%);
-margin:3rem 0;
+margin:2.5rem 0 0;
 transform:scaleX(0);transform-origin:left;
 animation:expandRule 1.2s cubic-bezier(0.16,1,0.3,1) forwards 1s;
 }
-
-.hero-footer{
-display:flex;justify-content:space-between;align-items:flex-end;
-opacity:0;animation:fadeIn 1s ease forwards 1.4s;
-}
 .hero-philosophy{
-max-width:520px;
+max-width:none;margin:2.2rem 0 0;
 font-family:var(--font-quote);
 font-size:1.3rem;font-weight:300;font-style:italic;
 line-height:1.65;color:var(--text-muted-light);
 }
-.hero-actions{display:flex;flex-direction:column;align-items:flex-end;gap:1rem;}
+.hero-actions{display:flex;flex-direction:column;align-items:flex-start;gap:1rem;margin-top:2rem;}
 .btn-hero{
 font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;
 color:var(--warm-white);text-decoration:none;
@@ -259,11 +247,14 @@ footer{background:#0A0F13;padding:3rem 4rem;display:flex;justify-content:space-b
 .rd3{transition-delay:0.24s;}.rd4{transition-delay:0.32s;}
 
 @keyframes fadeIn{to{opacity:1;}}
+@keyframes fadeUp{to{opacity:1;transform:none;}}
 @keyframes expandRule{to{transform:scaleX(1);}}
 
 @media(max-width:768px){
 nav{padding:1.2rem 1.5rem;}
-.hero{padding:8rem 1.5rem 4rem;}
+.hero{grid-template-columns:1fr;gap:2.5rem;padding:7rem 1.5rem 3rem;}
+.hero-portrait{order:-1;}
+.hero-portrait img{max-width:300px;}
 .philosophy{padding:6rem 1.5rem;}
 .phil-aside{display:none;}
 .work{padding:5rem 1.5rem;}
@@ -276,15 +267,13 @@ nav{padding:1.2rem 1.5rem;}
 .about{grid-template-columns:1fr;gap:3rem;padding:5rem 1.5rem;}
 .awards{grid-template-columns:1fr 1fr;padding:3rem 1.5rem;}
 footer{flex-direction:column;gap:2rem;text-align:center;padding:2rem 1.5rem;}
-.hero-footer{flex-direction:column;gap:2rem;}
-.hero-actions{align-items:flex-start;}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <img src="images/Jsn_signature_block.png" class="nav-logo" alt="J'sn Design">
+  <img src="images/Jsn_signature.png" class="nav-logo" alt="J'sn Design">
   <ul class="nav-links">
     <li><a href="#work">Work</a></li>
     <li><a href="#about">About</a></li>
@@ -295,21 +284,23 @@ footer{flex-direction:column;gap:2rem;text-align:center;padding:2rem 1.5rem;}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <p class="hero-eyebrow">Brand Designer · Toronto · 20+ Years</p>
-  <img src="images/Jsn_signature_block.png" class="hero-sig" alt="J'sn Design">
-  <div class="hero-descriptors">
-    <span class="desc">Brand Identity</span>
-    <span class="desc">Art Direction</span>
-    <span class="desc">Visual Systems</span>
-    <span class="desc">AI Creative</span>
-  </div>
-  <div class="hero-rule"></div>
-  <div class="hero-footer">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Brand Designer · Artist · Craftsman · 25+ Years</p>
+    <div class="hero-descriptors">
+      <span class="desc">Brand Identity</span>
+      <span class="desc">Art Direction</span>
+      <span class="desc">Visual Systems</span>
+      <span class="desc">AI Creative</span>
+    </div>
+    <div class="hero-rule"></div>
     <p class="hero-philosophy">I design something so beautiful that people forget how useful it is — because how useful it is is what makes it so beautiful.</p>
     <div class="hero-actions">
       <a href="#work" class="btn-hero"><span>View my work</span></a>
       <span class="scroll-hint">Scroll to explore</span>
     </div>
+  </div>
+  <div class="hero-portrait">
+    <img src="images/hero_portrait.jpg" alt="Jason Tello — J'sn Design">
   </div>
 </section>
 
