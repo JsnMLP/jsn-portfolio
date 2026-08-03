@@ -226,9 +226,9 @@ display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shri
 /* ABOUT — WARM GREY */
 .about{
 background:var(--warm-grey);padding:8rem 4rem;
-display:grid;grid-template-columns:1fr 1fr;gap:8rem;
-align-items:center;border-top:1px solid var(--border-light);
+border-top:1px solid var(--border-light);
 }
+.about-inner{max-width:740px;}
 .about-eyebrow{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;color:var(--accent);margin-bottom:2rem;display:block;}
 .about-rule{width:40px;height:2px;background:var(--accent);margin-bottom:2rem;}
 .about-heading{font-family:var(--font-sans);font-size:clamp(2.2rem,3.5vw,3rem);font-weight:300;line-height:1.15;letter-spacing:-0.015em;color:var(--text-dark);margin-bottom:2rem;}
@@ -448,12 +448,12 @@ nav{padding:1.2rem 1.5rem;}
 
 <!-- ABOUT -->
 <section class="about" id="about">
-  <div>
+  <div class="about-inner">
     <span class="about-eyebrow reveal">About</span>
     <div class="about-rule reveal"></div>
     <h2 class="about-heading reveal rd1">An artist who<br>built <em>everything</em><br>from scratch.</h2>
-    <p class="about-body reveal rd2">Trained in classical hand-drawn animation at MTM College of Animation, Art and Design — where the school director recognised a natural aptitude for art direction. Twenty years of solitary, rigorous practice followed.</p>
-    <p class="about-body reveal rd3">For 11 years, sole brand architect of an award-winning firm. Every logo, photograph, campaign, and pixel — mine. Full accountability for every result.</p>
+    <p class="about-body reveal rd2">Jason Tello trained in classical hand-drawn animation at MTM College of Animation, Art and Design, where the school director recognised a natural aptitude for art direction. That was in 2001.</p>
+    <p class="about-body reveal rd3">Since 2015, sole brand architect of a Consumer Choice Award-winning landscape design + build firm. Every logo, photograph, campaign, and graphic design — his. Full accountability for every result.</p>
     <div class="stats-grid reveal rd4">
       <div><p class="stat-n">11</p><p class="stat-l">Years building one brand</p></div>
       <div><p class="stat-n">93×</p><p class="stat-l">Campaign ROI · May 2026</p></div>
@@ -461,20 +461,14 @@ nav{padding:1.2rem 1.5rem;}
       <div><p class="stat-n">25+</p><p class="stat-l">Years of practice</p></div>
     </div>
   </div>
-  <div class="reveal rd2" style="position:relative;">
-    <div class="about-photo">
-      <div class="about-photo-inner"><span>Your photo here</span></div>
-    </div>
-    <div class="photo-accent"></div>
-  </div>
 </section>
 
 <!-- AWARDS -->
 <section class="awards">
   <div class="award reveal"><span class="award-yr">2026</span><p class="award-nm">Consumer Choice Award — York Region</p></div>
-  <div class="award reveal rd1"><span class="award-yr">2021 · 2022</span><p class="award-nm">CBRB Customer Vision Business Excellence</p></div>
+  <div class="award reveal rd1"><span class="award-yr">2021 · 2022</span><p class="award-nm">CBRB Customer-Focused Business Excellence</p></div>
   <div class="award reveal rd2"><span class="award-yr">1997</span><p class="award-nm">Visual Arts Award</p></div>
-  <div class="award reveal rd3"><span class="award-yr">Published</span><p class="award-nm">Photography</p></div>
+  <div class="award reveal rd3"><span class="award-yr">Published</span><p class="award-nm">Photography · Columnist</p></div>
 </section>
 
 <!-- FOOTER -->
