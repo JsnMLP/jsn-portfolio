@@ -285,7 +285,10 @@ nav{padding:1.2rem 1.5rem;}
 .hero{grid-template-columns:1fr;gap:2.5rem;padding:7rem 1.5rem 3rem;}
 .hero-portrait{order:-1;}
 .hero-portrait img{max-width:300px;}
-.hero-attrs{flex-wrap:wrap;font-size:10px;letter-spacing:0.08em;padding:0.7rem 1rem;gap:0.45rem 0.7rem;}
+.hero-attrs{display:flex;flex-direction:column;align-items:flex-start;gap:0.9rem;width:100%;padding:1.3rem 1.4rem;font-size:12px;letter-spacing:0.16em;}
+.hero-attrs .dot{display:none;}
+.hero-attrs>span:not(.dot){display:flex;align-items:center;}
+.hero-attrs>span:not(.dot)::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent-light);margin-right:0.8rem;flex-shrink:0;}
 .philosophy{padding:6rem 1.5rem 7rem;}
 .phil-quote{font-size:6rem;margin-bottom:-1.5rem;}
 .phil-aside{display:none;}
