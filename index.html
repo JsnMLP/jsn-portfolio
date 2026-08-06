@@ -99,6 +99,8 @@ padding:0 1.15rem;border-right:1px solid var(--border-light);
 }
 .desc:first-child{padding-left:0;}
 .desc:last-child{border-right:none;}
+.hero-attrs{display:inline-flex;align-items:center;gap:1rem;background:var(--charcoal);color:var(--warm-white);padding:0.75rem 1.5rem;border-radius:3px;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;margin-top:1.7rem;}
+.hero-attrs .dot{color:var(--accent-light);font-size:14px;}
 
 .hero-rule{
 width:100%;height:1px;
@@ -283,6 +285,7 @@ nav{padding:1.2rem 1.5rem;}
 .hero{grid-template-columns:1fr;gap:2.5rem;padding:7rem 1.5rem 3rem;}
 .hero-portrait{order:-1;}
 .hero-portrait img{max-width:300px;}
+.hero-attrs{flex-wrap:wrap;font-size:10px;letter-spacing:0.08em;padding:0.7rem 1rem;gap:0.45rem 0.7rem;}
 .philosophy{padding:6rem 1.5rem 7rem;}
 .phil-quote{font-size:6rem;margin-bottom:-1.5rem;}
 .phil-aside{display:none;}
@@ -335,6 +338,13 @@ nav{padding:1.2rem 1.5rem;}
       <span class="desc">Visual Systems</span>
       <span class="desc">AI Creative</span>
     </div>
+    <div class="hero-attrs">
+      <span>Data-Informed</span>
+      <span class="dot">·</span>
+      <span>Neuroscience-Led</span>
+      <span class="dot">·</span>
+      <span>Outcome-Driven</span>
+    </div>
     <div class="hero-rule"></div>
     <p class="hero-philosophy">I design something so beautiful that people forget how useful it is — because how useful it is is what makes it so beautiful.</p>
     <div class="hero-actions">
@@ -374,14 +384,13 @@ nav{padding:1.2rem 1.5rem;}
 
   <div class="acc reveal">
 
-    <div class="acc-item open">
+    <div class="acc-item">
       <div class="acc-head" onclick="toggleAcc(this)">
         <div class="acc-logo"><img src="images/mlp_logo_sliver.png" alt="My Landscaping Project logo"></div>
         <span class="acc-num">01</span>
         <h2 class="acc-title">My Landscaping Project</h2>
         <div class="acc-meta">
-          <span class="acc-tag">Brand identity · Design-build</span>
-          <span class="acc-tag">11 Years · GTA</span>
+          <span class="acc-tag">Design + Build Firm</span>
         </div>
         <span class="acc-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
       </div>
@@ -403,8 +412,7 @@ nav{padding:1.2rem 1.5rem;}
         <span class="acc-num">02</span>
         <h2 class="acc-title">Vid Converts</h2>
         <div class="acc-meta">
-          <span class="acc-tag">SaaS brand · Product UI</span>
-          <span class="acc-tag">AI platform · 93× ROI</span>
+          <span class="acc-tag">SaaS Platform</span>
         </div>
         <span class="acc-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
       </div>
@@ -426,8 +434,7 @@ nav{padding:1.2rem 1.5rem;}
         <span class="acc-num">03</span>
         <h2 class="acc-title">KALMA · 34</h2>
         <div class="acc-meta">
-          <span class="acc-tag">Health tech · App brand</span>
-          <span class="acc-tag">UI · UX · Science-grounded</span>
+          <span class="acc-tag">Health App</span>
         </div>
         <span class="acc-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
       </div>
@@ -435,7 +442,7 @@ nav{padding:1.2rem 1.5rem;}
         <div class="acc-panel-inner">
           <div class="acc-images">
             <div class="acc-img"><img src="images/k34_app_design.jpg" alt="KALMA 34 — app product UI"></div>
-            <div class="acc-img"><img src="images/k34_brandmark.jpg" alt="KALMA 34 brandmark"></div>
+            <div class="acc-img"><img src="images/k34_wordmark.jpg" alt="KALMA 34 wordmark"></div>
             <div class="acc-img"><img src="images/k34_brand_system.jpg" alt="KALMA 34 brand system"></div>
           </div>
           <div class="acc-cta-row"><span class="acc-soon">Case study in progress</span></div>
