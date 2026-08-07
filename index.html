@@ -99,7 +99,7 @@ padding:0 1.15rem;border-right:1px solid var(--border-light);
 }
 .desc:first-child{padding-left:0;}
 .desc:last-child{border-right:none;}
-.hero-attrs{display:inline-flex;align-items:center;gap:1rem;background:var(--charcoal);color:var(--warm-white);padding:0.75rem 1.5rem;border-radius:3px;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;margin-top:1.7rem;}
+.hero-attrs{display:inline-flex;flex-wrap:wrap;align-items:center;gap:0.4rem 1rem;background:var(--charcoal);color:var(--warm-white);padding:0.75rem 1.4rem;border-radius:3px;font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;margin-top:1.7rem;}
 .hero-attrs .dot{color:var(--accent-light);font-size:14px;}
 
 .hero-rule{
@@ -256,6 +256,14 @@ border-top:1px solid var(--border-dark);
 .award-yr{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:var(--accent);margin-bottom:0.8rem;display:block;}
 .award-nm{font-family:var(--font-sans);font-size:1.05rem;font-weight:400;color:var(--warm-white);line-height:1.4;}
 
+/* CLOSING QUOTE */
+.closing{background:var(--warm-grey);padding:7rem 4rem;border-top:1px solid var(--border-light);}
+.closing-inner{max-width:900px;}
+.closing-mark{display:block;font-family:var(--font-quote);font-size:5rem;font-weight:500;color:var(--accent-light);line-height:0.5;height:2.4rem;}
+.closing-quote{font-family:var(--font-quote);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;font-style:italic;line-height:1.5;color:var(--text-dark);}
+.closing-quote em{color:var(--accent);font-style:italic;}
+.closing-attr{margin-top:2rem;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:var(--text-muted-light);}
+
 /* FOOTER */
 footer{background:#0A0F13;padding:2.5rem 4rem;display:flex;flex-direction:column;gap:1.8rem;}
 .foot-main{display:flex;justify-content:space-between;align-items:center;}
@@ -301,6 +309,7 @@ nav{padding:1.2rem 1.5rem;}
 .acc-images{grid-template-columns:1fr 1fr;gap:0.8rem;}
 .about{grid-template-columns:1fr;gap:3rem;padding:5rem 1.5rem;}
 .awards{grid-template-columns:1fr 1fr;padding:3rem 1.5rem;}
+.closing{padding:4.5rem 1.5rem;}
 .foot-main{flex-direction:column;gap:1.8rem;text-align:center;}
 }
 </style>
@@ -347,6 +356,8 @@ nav{padding:1.2rem 1.5rem;}
       <span>Neuroscience-Led</span>
       <span class="dot">·</span>
       <span>Outcome-Driven</span>
+      <span class="dot">·</span>
+      <span>Systems Designer</span>
     </div>
     <div class="hero-rule"></div>
     <p class="hero-philosophy">I design something so beautiful that people forget how useful it is — because how useful it is is what makes it so beautiful.</p>
@@ -481,6 +492,15 @@ nav{padding:1.2rem 1.5rem;}
   <div class="award reveal rd3"><span class="award-yr">Published</span><p class="award-nm">Photography<br>Columnist</p></div>
 </section>
 
+<!-- CLOSING QUOTE -->
+<section class="closing">
+  <div class="closing-inner reveal">
+    <span class="closing-mark">&ldquo;</span>
+    <p class="closing-quote">I'm always thinking: how can we make this task or this workflow more effective? What system exists — versus what can we create — to make it better? <em>That's how my mind works.</em></p>
+    <p class="closing-attr">Jason Tello</p>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="foot-main">
@@ -492,7 +512,7 @@ nav{padding:1.2rem 1.5rem;}
     </ul>
     <span class="foot-loc">Toronto, ON · 2026</span>
   </div>
-  <div class="foot-credit">Built with intention by <span>Digital Nuclei</span></div>
+  <div class="foot-credit">Built with intention by <span>J'sn</span></div>
 </footer>
 
 <script>
