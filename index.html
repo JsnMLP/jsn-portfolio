@@ -256,14 +256,6 @@ border-top:1px solid var(--border-dark);
 .award-yr{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:var(--accent);margin-bottom:0.8rem;display:block;}
 .award-nm{font-family:var(--font-sans);font-size:1.05rem;font-weight:400;color:var(--warm-white);line-height:1.4;}
 
-/* CLOSING QUOTE */
-.closing{background:var(--warm-grey);padding:7rem 4rem;border-top:1px solid var(--border-light);}
-.closing-inner{max-width:900px;}
-.closing-mark{display:block;font-family:var(--font-quote);font-size:5rem;font-weight:500;color:var(--accent-light);line-height:0.5;height:2.4rem;}
-.closing-quote{font-family:var(--font-quote);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;font-style:italic;line-height:1.5;color:var(--text-dark);}
-.closing-quote em{color:var(--accent);font-style:italic;}
-.closing-attr{margin-top:2rem;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:var(--text-muted-light);}
-
 /* FOOTER */
 footer{background:#0A0F13;padding:2.5rem 4rem;display:flex;flex-direction:column;gap:1.8rem;}
 .foot-main{display:flex;justify-content:space-between;align-items:center;}
@@ -309,7 +301,6 @@ nav{padding:1.2rem 1.5rem;}
 .acc-images{grid-template-columns:1fr 1fr;gap:0.8rem;}
 .about{grid-template-columns:1fr;gap:3rem;padding:5rem 1.5rem;}
 .awards{grid-template-columns:1fr 1fr;padding:3rem 1.5rem;}
-.closing{padding:4.5rem 1.5rem;}
 .foot-main{flex-direction:column;gap:1.8rem;text-align:center;}
 }
 </style>
@@ -493,12 +484,11 @@ nav{padding:1.2rem 1.5rem;}
 </section>
 
 <!-- CLOSING QUOTE -->
-<section class="closing">
-  <div class="closing-inner reveal">
-    <span class="closing-mark">&ldquo;</span>
-    <p class="closing-quote">I'm always thinking: how can we make this task or this workflow more effective? What system exists — versus what can we create — to make it better? <em>That's how my mind works.</em></p>
-    <p class="closing-attr">Jason Tello</p>
-  </div>
+<div class="divide"></div>
+
+<section class="philosophy">
+  <span class="phil-quote">&ldquo;</span>
+  <p class="phil-text reveal rd1">I'm always thinking: how can we make this task or this workflow more effective? What system exists — versus what can we create — to make it better? <em>That's how my mind works.</em></p>
 </section>
 
 <!-- FOOTER -->
