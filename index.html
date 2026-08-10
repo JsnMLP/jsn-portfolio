@@ -268,6 +268,17 @@ border-top:1px solid var(--border-dark);
 .award-yr{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:var(--accent);margin-bottom:0.8rem;display:block;}
 .award-nm{font-family:var(--font-sans);font-size:1.05rem;font-weight:400;color:var(--warm-white);line-height:1.4;}
 
+/* TESTIMONIALS */
+.testi{background:var(--warm-grey);padding:7rem 4rem;border-top:1px solid var(--border-light);}
+.testi-lbl{font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);text-align:center;margin-bottom:0.6rem;}
+.testi-sub{font-size:0.85rem;color:var(--text-muted-light);text-align:center;margin-bottom:3rem;font-weight:400;}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1200px;margin:0 auto;}
+.testi-card{background:var(--warm-white);border:1px solid var(--border-light);border-radius:10px;padding:2rem 1.8rem;display:flex;flex-direction:column;}
+.testi-mark{font-family:var(--font-quote);font-size:3rem;color:var(--accent-light);line-height:0.4;height:1.3rem;}
+.testi-quote{font-size:0.95rem;line-height:1.75;color:var(--text-dark);font-weight:400;flex:1;margin:1rem 0 1.5rem;}
+.testi-name{font-size:0.85rem;font-weight:700;color:var(--text-dark);}
+.testi-firm{font-size:0.62rem;letter-spacing:0.13em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-top:0.3rem;}
+
 /* FOOTER */
 footer{background:#0A0F13;padding:2.5rem 4rem;display:flex;flex-direction:column;gap:1.8rem;}
 .foot-main{display:flex;justify-content:space-between;align-items:center;}
@@ -314,6 +325,8 @@ nav{padding:1.2rem 1.5rem;}
 .acc-images{grid-template-columns:1fr 1fr;gap:0.8rem;}
 .about{grid-template-columns:1fr;gap:3rem;padding:5rem 1.5rem;}
 .awards{grid-template-columns:1fr 1fr;padding:3rem 1.5rem;}
+.testi{padding:4.5rem 1.5rem;}
+.testi-grid{grid-template-columns:1fr;gap:1.2rem;}
 .foot-main{flex-direction:column;gap:1.8rem;text-align:center;}
 }
 @media(prefers-reduced-motion:reduce){
@@ -500,12 +513,32 @@ nav{padding:1.2rem 1.5rem;}
   <div class="award reveal rd3"><span class="award-yr">Published</span><p class="award-nm">Photography<br>Columnist</p></div>
 </section>
 
-<!-- CLOSING QUOTE -->
+<!-- TESTIMONIALS -->
 <div class="divide"></div>
 
-<section class="philosophy">
-  <span class="phil-quote">&ldquo;</span>
-  <p class="phil-text reveal rd1">I'm always thinking: how can we make this task or this workflow more effective? What system exists — versus what can we create — to make it better? <em>That's how my mind works.</em></p>
+<section class="testi">
+  <p class="testi-lbl reveal">What clients say</p>
+  <p class="testi-sub reveal">Clients of my firm, My Landscaping Project — on how I work.</p>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <span class="testi-mark">&ldquo;</span>
+      <p class="testi-quote">Professional, punctual, and excellent with communication. He takes pride in his work.</p>
+      <p class="testi-name">Kelly Baron</p>
+      <p class="testi-firm">My Landscaping Project</p>
+    </div>
+    <div class="testi-card reveal rd1">
+      <span class="testi-mark">&ldquo;</span>
+      <p class="testi-quote">The attention to detail and craftsmanship were beyond my expectations, and Jason has a real talent for both design and aesthetics.</p>
+      <p class="testi-name">Dror Balshine</p>
+      <p class="testi-firm">My Landscaping Project</p>
+    </div>
+    <div class="testi-card reveal rd2">
+      <span class="testi-mark">&ldquo;</span>
+      <p class="testi-quote">He listened to what we wanted and gave great suggestions. He was extremely honest.</p>
+      <p class="testi-name">Linor Gerchak</p>
+      <p class="testi-firm">My Landscaping Project</p>
+    </div>
+  </div>
 </section>
 
 <!-- FOOTER -->
