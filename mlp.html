@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Landscaping Project — Case Study — J'sn Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+--charcoal:#1C2329;--charcoal-mid:#252D35;--accent:#AC3110;--accent-light:#C4471D;--accent-pale:#F5EBE6;
+--warm-white:#FAF8F6;--warm-grey:#F2EBE4;--warm-mid:#E8DDD5;--text-dark:#1C2329;--text-muted-dark:rgba(250,248,246,0.45);
+--text-muted-light:#7A6E67;--border-dark:rgba(250,248,246,0.09);--border-light:#E2D8D0;
+--font-sans:'Mulish',sans-serif;--font-quote:'Fraunces',Georgia,serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-sans);overflow-x:hidden;background:var(--warm-white);color:var(--text-dark);}
+body.menu-open{overflow:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;padding:1.8rem 4rem;display:flex;justify-content:space-between;align-items:center;background:rgba(250,248,246,0.95);border-bottom:1px solid var(--border-light);backdrop-filter:blur(12px);}
+.nav-logo{height:30px;display:block;position:relative;z-index:300;}
+.nav-toggle{position:relative;z-index:300;width:28px;height:18px;background:none;border:none;cursor:pointer;padding:0;display:flex;flex-direction:column;justify-content:space-between;}
+.nav-toggle span{display:block;height:2px;width:100%;background:var(--text-dark);border-radius:2px;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),opacity 0.3s ease;}
+body.menu-open .nav-toggle span:nth-child(1){transform:translateY(8px) rotate(45deg);}
+body.menu-open .nav-toggle span:nth-child(2){opacity:0;}
+body.menu-open .nav-toggle span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
+.menu-overlay{position:fixed;inset:0;z-index:200;background:var(--warm-white);opacity:0;visibility:hidden;transition:opacity 0.5s ease,visibility 0.5s ease;display:flex;align-items:center;justify-content:center;}
+body.menu-open .menu-overlay{opacity:1;visibility:visible;}
+.menu-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;padding:2rem 4rem;max-width:1000px;width:100%;transform:translateY(20px);transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);}
+body.menu-open .menu-inner{transform:none;}
+.menu-col{display:flex;flex-direction:column;gap:1.3rem;}
+.menu-label{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;color:var(--accent);margin-bottom:0.8rem;}
+.menu-col a{font-size:2rem;font-weight:300;letter-spacing:-0.015em;color:var(--text-dark);text-decoration:none;transition:color 0.3s,padding-left 0.3s;width:fit-content;}
+.menu-col a:hover{color:var(--accent);padding-left:0.5rem;}
+.menu-col a.here{color:var(--accent);}
+
+/* HERO — CHARCOAL, CINEMATIC */
+.mhero{min-height:92vh;background:var(--charcoal);color:var(--warm-white);display:flex;flex-direction:column;justify-content:center;padding:10rem 4rem 5rem;position:relative;overflow:hidden;}
+.mhero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 72% 30%,rgba(172,49,16,0.14),transparent 60%);pointer-events:none;}
+.mhero-in{position:relative;z-index:2;max-width:1000px;}
+.mhero-ey{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;color:var(--accent-light);margin-bottom:2rem;display:flex;align-items:center;gap:1.1rem;opacity:0;animation:fadeUp 1s ease forwards 0.3s;}
+.mhero-ey::before{content:'';width:34px;height:1px;background:var(--accent-light);}
+.mhero-mark{width:58px;height:58px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:1.8rem;opacity:0;animation:fadeUp 1s ease forwards 0.45s;}
+.mhero-mark img{width:100%;height:100%;object-fit:contain;padding:9px;}
+.mhero-h{font-family:var(--font-quote);font-size:clamp(2.6rem,6vw,5rem);font-weight:300;line-height:1.06;letter-spacing:-0.01em;opacity:0;animation:fadeUp 1s ease forwards 0.6s;}
+.mhero-h em{color:var(--accent-light);font-style:italic;}
+.mhero-sub{margin-top:2.2rem;max-width:620px;font-size:1.05rem;line-height:1.7;color:var(--text-muted-dark);font-weight:400;opacity:0;animation:fadeUp 1s ease forwards 0.8s;}
+.mhero-tags{margin-top:2.5rem;display:flex;flex-wrap:wrap;gap:0 1.2rem;row-gap:0.5rem;opacity:0;animation:fadeUp 1s ease forwards 1s;}
+.mhero-tags span{font-size:0.64rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:600;color:var(--text-muted-dark);padding-right:1.2rem;border-right:1px solid var(--border-dark);}
+.mhero-tags span:last-child{border-right:none;}
+.mhero-scroll{position:absolute;bottom:2.5rem;left:4rem;font-size:0.64rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-muted-dark);z-index:2;opacity:0;animation:fadeUp 1s ease forwards 1.3s;}
+
+/* CHAPTERS */
+.chapters{background:var(--warm-white);padding:7rem 4rem 8rem;}
+.chapters-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border-light);}
+.chapters-head .lbl{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;color:var(--accent);}
+.chapters-head .cnt{font-size:0.8rem;font-weight:500;letter-spacing:0.06em;color:var(--text-muted-light);}
+
+.chapter{border-top:1px solid var(--border-light);}
+.chapter:last-child{border-bottom:1px solid var(--border-light);}
+.ch-head{display:grid;grid-template-columns:52px 1fr auto 34px;align-items:center;gap:1.6rem;padding:2rem 0.4rem;cursor:pointer;position:relative;overflow:hidden;transition:padding-left 0.4s cubic-bezier(0.16,1,0.3,1);}
+.ch-head::before{content:'';position:absolute;inset:0 0 0 -100%;background:var(--accent-pale);transition:left 0.5s cubic-bezier(0.16,1,0.3,1);z-index:0;}
+.ch-head:hover::before{left:0;}
+.ch-head:hover{padding-left:1rem;}
+.ch-head>*{position:relative;z-index:1;}
+.ch-num{font-family:var(--font-quote);font-size:1.5rem;color:var(--accent-light);line-height:1;}
+.ch-titles{display:flex;flex-direction:column;gap:0.35rem;}
+.ch-title{font-size:1.8rem;font-weight:300;letter-spacing:-0.015em;line-height:1;color:var(--text-dark);transition:color 0.3s;}
+.ch-head:hover .ch-title{color:var(--accent);}
+.ch-teaser{font-size:0.82rem;color:var(--text-muted-light);font-weight:400;line-height:1.4;max-width:640px;}
+.ch-tag{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:var(--accent);text-align:right;}
+.ch-chev{color:var(--accent);display:flex;justify-content:flex-end;transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);}
+.chapter.open .ch-chev{transform:rotate(180deg);}
+.ch-panel{max-height:0;overflow:hidden;transition:max-height 0.7s cubic-bezier(0.16,1,0.3,1);}
+.chapter.open .ch-panel{max-height:3200px;}
+.ch-inner{padding:1rem 0.4rem 4rem 3.5rem;}
+
+/* placeholder chapters */
+.ch-soon{display:flex;align-items:center;gap:1rem;padding:2.4rem 0;}
+.ch-soon-dot{width:8px;height:8px;border-radius:50%;background:var(--accent-light);flex-shrink:0;}
+.ch-soon-t{font-size:0.9rem;color:var(--text-muted-light);line-height:1.6;max-width:640px;}
+.ch-soon-t b{color:var(--text-dark);font-weight:700;}
+
+/* WEBSITE JOURNEY — the showpiece */
+.wj-lead{max-width:760px;margin-bottom:2.6rem;}
+.wj-lead p{font-size:1rem;line-height:1.85;color:var(--text-muted-light);margin-bottom:1.2rem;}
+.wj-lead p strong{color:var(--text-dark);font-weight:700;}
+.wj-lead .wj-focus{font-family:var(--font-quote);font-style:italic;font-size:1.25rem;line-height:1.5;color:var(--text-dark);font-weight:300;border-left:2px solid var(--accent);padding-left:1.3rem;margin-top:1.8rem;}
+
+.wj-stage{background:var(--warm-grey);border:1px solid var(--border-light);border-radius:14px;padding:1.8rem;margin-top:0.5rem;}
+.wj-video{background:var(--charcoal);border-radius:10px;position:relative;overflow:hidden;aspect-ratio:16/9;}
+.wj-poster{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;}
+.wj-stage.playing .wj-poster{display:none;}
+#wjPlayer{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.wj-video .vbg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 38%,rgba(196,71,29,0.16),transparent 62%);}
+.wj-tag{position:absolute;top:1.1rem;left:1.2rem;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;color:var(--accent-light);z-index:2;}
+.vplay{position:relative;z-index:2;width:70px;height:70px;border-radius:50%;background:var(--accent-light);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform 0.25s ease;}
+.vplay:hover{transform:scale(1.06);}
+.vplay .ico{width:0;height:0;border-style:solid;border-width:10px 0 10px 16px;border-color:transparent transparent transparent #FAF8F6;margin-left:3px;}
+.wj-stage.playing .vplay .ico{display:none;}
+.vplay .pz{display:none;gap:5px;}
+.vplay .pz span{width:4px;height:18px;background:#FAF8F6;border-radius:1px;}
+.wj-stage.playing .vplay .pz{display:flex;}
+.vlabel{position:absolute;left:1.2rem;bottom:1.5rem;font-size:0.74rem;color:rgba(250,248,246,0.85);font-weight:500;z-index:2;}
+.vtime{position:absolute;right:1.2rem;bottom:1.5rem;font-size:0.66rem;color:rgba(250,248,246,0.45);font-weight:600;font-variant-numeric:tabular-nums;z-index:2;}
+.track{position:absolute;left:0;right:0;bottom:0;height:6px;background:rgba(250,248,246,0.12);cursor:pointer;z-index:2;}
+.fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent-light);}
+.head-dot{position:absolute;top:50%;left:0;width:12px;height:12px;border-radius:50%;background:#FAF8F6;transform:translate(-50%,-50%);box-shadow:0 0 0 3px rgba(196,71,29,0.4);}
+.marker{position:absolute;top:50%;width:9px;height:9px;border-radius:50%;background:rgba(250,248,246,0.5);transform:translate(-50%,-50%);cursor:pointer;transition:background 0.2s,transform 0.2s;}
+.marker.on{background:var(--accent-light);transform:translate(-50%,-50%) scale(1.4);}
+.wj-hint{font-size:0.78rem;color:var(--text-muted-light);text-align:center;margin:1.2rem 0 1.3rem;}
+.wj-hint b{color:var(--accent);font-weight:700;}
+.wj-arts{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;}
+.art{background:#FBF8F4;border:1px solid var(--border-light);border-radius:9px;padding:1rem 0.9rem 1.1rem;cursor:pointer;transition:transform 0.3s cubic-bezier(0.16,1,0.3,1),border-color 0.3s,box-shadow 0.3s,background 0.3s;position:relative;overflow:hidden;}
+.art .bar{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent-light);opacity:0;transition:opacity 0.3s;}
+.art-k{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;color:#B9AE9F;}
+.art-n{font-size:0.82rem;font-weight:600;line-height:1.3;margin:0.5rem 0 0;color:var(--text-dark);}
+.art.active{background:#fff;border-color:var(--accent-light);transform:translateY(-6px);box-shadow:0 12px 26px -14px rgba(28,35,41,0.4);}
+.art.active .art-k{color:var(--accent-light);}
+.art.active .bar{opacity:1;}
+
+.wj-detail{margin-top:1.5rem;}
+.det{display:none;grid-template-columns:1.1fr 1fr;gap:1.6rem;align-items:center;background:#fff;border:1px solid var(--border-light);border-radius:11px;padding:1.6rem;animation:detIn 0.5s ease;}
+.det.active{display:grid;}
+.det-shot{aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:var(--warm-white);border:1px solid var(--border-light);}
+.det-shot img{width:100%;height:100%;object-fit:cover;display:block;}
+.det-body h4{font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:0.7rem;}
+.det-body p{font-size:0.92rem;line-height:1.7;color:var(--text-muted-light);margin-bottom:0.9rem;}
+.det-body p strong{color:var(--text-dark);font-weight:700;}
+.det-body .principle{display:inline-block;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:100px;padding:0.35rem 0.9rem;}
+
+.wj-quote{max-width:820px;margin:2.8rem 0 0;font-family:var(--font-quote);font-size:clamp(1.35rem,3vw,1.9rem);font-weight:300;font-style:italic;line-height:1.45;color:var(--text-dark);border-left:3px solid var(--accent);padding-left:1.6rem;}
+.wj-quote cite{display:block;margin-top:1rem;font-family:var(--font-sans);font-style:normal;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;color:var(--text-muted-light);}
+.wj-close{max-width:760px;margin-top:3rem;}
+.wj-close p{font-family:var(--font-quote);font-size:1.35rem;font-weight:300;line-height:1.5;color:var(--text-dark);}
+.wj-close em{color:var(--accent);font-style:italic;}
+
+/* FOOTER */
+footer{background:#0A0F13;padding:2.5rem 4rem;display:flex;flex-direction:column;gap:1.8rem;}
+.foot-main{display:flex;justify-content:space-between;align-items:center;}
+.foot-sig{height:38px;display:block;filter:invert(1);mix-blend-mode:screen;}
+.foot-links{display:flex;gap:2.5rem;list-style:none;}
+.foot-links a{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;color:rgba(250,248,246,0.25);text-decoration:none;transition:color 0.2s;}
+.foot-links a:hover{color:var(--accent-light);}
+.foot-loc{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;color:rgba(250,248,246,0.12);}
+.foot-credit{font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;color:rgba(250,248,246,0.28);text-align:center;border-top:1px solid rgba(250,248,246,0.06);padding-top:1.6rem;}
+.foot-credit span{color:var(--accent-light);}
+
+/* REVEAL + MOTION */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.8s ease,transform 0.8s cubic-bezier(0.16,1,0.3,1);}
+.reveal.on{opacity:1;transform:none;}
+.rd1{transition-delay:0.08s;}.rd2{transition-delay:0.16s;}.rd3{transition-delay:0.24s;}
+@keyframes fadeUp{to{opacity:1;transform:none;}}
+@keyframes detIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+@media(max-width:768px){
+nav{padding:1.2rem 1.5rem;}
+.menu-inner{grid-template-columns:1fr;gap:2.8rem;padding:6rem 1.5rem 2rem;align-content:start;}
+.menu-overlay{align-items:flex-start;}
+.menu-col a{font-size:1.6rem;}
+.mhero{padding:7rem 1.5rem 4rem;min-height:auto;}
+.mhero-scroll{left:1.5rem;}
+.chapters{padding:4.5rem 1.5rem 5rem;}
+.ch-head{grid-template-columns:38px 1fr 26px;gap:0.9rem;padding:1.5rem 0.2rem;}
+.ch-tag{display:none;}
+.ch-title{font-size:1.3rem;}
+.ch-teaser{font-size:0.75rem;}
+.ch-inner{padding:0.8rem 0.2rem 3rem;}
+.wj-stage{padding:1.1rem;}
+.wj-arts{grid-template-columns:1fr 1fr;}
+.det{grid-template-columns:1fr;gap:1.1rem;}
+.foot-main{flex-direction:column;gap:1.8rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html"><img src="images/Jsn_signature.png" class="nav-logo" alt="J'sn Design"></a>
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="menu-overlay">
+  <div class="menu-inner">
+    <div class="menu-col">
+      <span class="menu-label">Navigate</span>
+      <a href="index.html#work" onclick="closeMenu()">Work</a>
+      <a href="index.html#about" onclick="closeMenu()">About</a>
+      <a href="mailto:jsnt1980@gmail.com" onclick="closeMenu()">Contact</a>
+    </div>
+    <div class="menu-col">
+      <span class="menu-label">Case studies</span>
+      <a href="mlp.html" class="here">My Landscaping Project</a>
+      <a href="vid-converts.html">Vid Converts</a>
+      <a href="kalma34.html">KALMA · 34</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="mhero">
+  <div class="mhero-bg"></div>
+  <div class="mhero-in">
+    <p class="mhero-ey">Case Study 01 · Design-build · Since 2015</p>
+    <div class="mhero-mark"><img src="images/mlp_logo_sliver.png" alt="MLP"></div>
+    <h1 class="mhero-h">A landscaping firm,<br>run like a <em>system.</em></h1>
+    <p class="mhero-sub">My Landscaping Project isn't just a portfolio of decks and gardens. It's a brand, a build process, and a website engineered — down to the sequencing of a single page — to turn a skeptical homeowner into a confident client.</p>
+    <div class="mhero-tags"><span>Brand Identity</span><span>Design-Build</span><span>Conversion Design</span><span>11 Years · GTA</span></div>
+  </div>
+  <span class="mhero-scroll">Scroll · six chapters</span>
+</section>
+
+<!-- CHAPTERS -->
+<section class="chapters">
+  <div class="chapters-head reveal">
+    <span class="lbl">The MLP Story</span>
+    <span class="cnt">06 chapters</span>
+  </div>
+
+  <!-- 01 CLIENT JOURNEY -->
+  <div class="chapter reveal">
+    <div class="ch-head" onclick="toggleChapter(this)">
+      <span class="ch-num">01</span>
+      <div class="ch-titles"><span class="ch-title">Client Journey</span><span class="ch-teaser">From ballpark estimate to a custom, in-house CRM — how a homeowner actually moves through working with me.</span></div>
+      <span class="ch-tag">Video · Images</span>
+      <span class="ch-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+    </div>
+    <div class="ch-panel"><div class="ch-inner"><div class="ch-soon"><span class="ch-soon-dot"></span><p class="ch-soon-t"><b>In development.</b> A walkthrough of the custom in-house CRM and the ballpark-estimate the client receives — the systems behind the service. Video coming.</p></div></div></div>
+  </div>
+
+  <!-- 02 WEBSITE JOURNEY — showpiece (open by default) -->
+  <div class="chapter open reveal">
+    <div class="ch-head" onclick="toggleChapter(this)">
+      <span class="ch-num">02</span>
+      <div class="ch-titles"><span class="ch-title">Website Journey</span><span class="ch-teaser">The pricing page, taken apart — why every layout and sequencing choice was a behavioral decision, not an aesthetic one.</span></div>
+      <span class="ch-tag">Video · Artifacts</span>
+      <span class="ch-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+    </div>
+    <div class="ch-panel">
+      <div class="ch-inner">
+
+        <div class="wj-lead">
+          <p>I didn't design mylandscapingproject.ca from a rulebook. I designed it from 25 years of studying design and human behaviour — and since 2015, from running my own design-build firm and rebuilding its site until I understood exactly how a homeowner wants to decide. Then I did the thing most people never do: <strong>I went back and named why it worked, principle by principle, and turned it into a system.</strong> This is the systematic way my mind works — and this chapter is that method, read backwards off the page that produced it.</p>
+          <p class="wj-focus">So let's take one page — the pricing page — and take it apart.</p>
+        </div>
+
+        <div class="wj-stage" id="wjStage" data-yt="_J-fmhQCtpM">
+          <div class="wj-video">
+            <div class="wj-poster" id="wjPoster">
+              <div class="vbg"></div>
+              <span class="wj-tag">Walkthrough · The Pricing Page</span>
+              <button class="vplay" id="wjPlay" aria-label="Play walkthrough"><span class="ico"></span></button>
+              <span class="vlabel">How the pricing page is engineered to convert</span>
+            </div>
+            <div id="wjPlayer"></div>
+          </div>
+
+          <p class="wj-hint">Press <b>play</b> — each move on the page lights up as the walkthrough reaches it. Or <b>tap a move</b> to jump the video there.</p>
+
+          <div class="wj-arts">
+            <div class="art active" data-i="0"><div class="bar"></div><span class="art-k">01</span><p class="art-n">Budget as a self-selecting door</p></div>
+            <div class="art" data-i="1"><div class="bar"></div><span class="art-k">02</span><p class="art-n">Investment, not price</p></div>
+            <div class="art" data-i="2"><div class="bar"></div><span class="art-k">03</span><p class="art-n">Selling the morning coffee</p></div>
+            <div class="art" data-i="3"><div class="bar"></div><span class="art-k">04</span><p class="art-n">The role-play Q&amp;A</p></div>
+          </div>
+
+          <div class="wj-detail">
+            <div class="det active" data-i="0">
+              <div class="det-shot"><img src="images/mlp_price_ranges.jpg" alt="MLP pricing page — price-range buttons"></div>
+              <div class="det-body">
+                <h4>Budget as a self-selecting door</h4>
+                <p>Instead of hiding pricing, visitors pick their own range and see real projects at that level. It <strong>qualifies the lead before the first call</strong> — and a firm that shows its ranges signals it isn't desperate for any job.</p>
+                <span class="principle">Transparency · Selective Confidence</span>
+              </div>
+            </div>
+            <div class="det" data-i="1">
+              <div class="det-shot"><img src="images/mlp_price_investment.jpg" alt="MLP pricing page — Investment card"></div>
+              <div class="det-body">
+                <h4>Investment, not price</h4>
+                <p>The page never says "cost." Every project reads <strong>Investment: $16,375 · Property Value Increase: $25–30k.</strong> The scariest number on the page becomes the most reassuring — because the unknown price is the number-one reason a homeowner leaves.</p>
+                <span class="principle">Radical Transparency</span>
+              </div>
+            </div>
+            <div class="det" data-i="2">
+              <div class="det-shot"><img src="images/mlp_price_story.jpg" alt="MLP pricing page — Why the Project story"></div>
+              <div class="det-body">
+                <h4>Selling the morning coffee</h4>
+                <p>Every project's story leads with the family, not the specs — the unsafe old bridge, the mom who sketched her vision, the coffee by the waterfall. Homeowners decide emotionally and justify rationally: <strong>the feeling closes; the scope sheet just confirms it</strong> <em>(Kahneman's System 1)</em>.</p>
+                <span class="principle">Emotional Sequencing</span>
+              </div>
+            </div>
+            <div class="det" data-i="3">
+              <div class="det-shot"><img src="images/mlp_price_qa.jpg" alt="MLP pricing page — role-play Q&A"></div>
+              <div class="det-body">
+                <h4>The role-play Q&amp;A</h4>
+                <p>The FAQ isn't generic — it's the <strong>actual doubts clients voiced,</strong> answered the way I'd answer them on the phone. Handle the objection before it's raised, and you prove you've heard it a hundred times. Answer honestly first, earn the call <em>(Cialdini's reciprocity)</em>.</p>
+                <span class="principle">The Advisor Position</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <blockquote class="wj-quote">&ldquo;A well-informed consumer will always make a much more satisfying decision about who they go with.&rdquo;<cite>— my own words, from the walkthrough. The entire page exists to inform.</cite></blockquote>
+
+        <div class="wj-close">
+          <p>None of this was luck, and none of it was taste. It was a repeatable set of moves — which is exactly why I could extract it. <em>The method, made repeatable.</em></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 IG -->
+  <div class="chapter reveal">
+    <div class="ch-head" onclick="toggleChapter(this)">
+      <span class="ch-num">03</span>
+      <div class="ch-titles"><span class="ch-title">Instagram</span><span class="ch-teaser">Highlight reels, posts, and client testimonials — the brand in motion.</span></div>
+      <span class="ch-tag">Images · Video</span>
+      <span class="ch-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+    </div>
+    <div class="ch-panel"><div class="ch-inner"><div class="ch-soon"><span class="ch-soon-dot"></span><p class="ch-soon-t"><b>In development.</b> Highlight videos, posts, and testimonial clips. Images + video coming.</p></div></div></div>
+  </div>
+
+  <!-- 04 META -->
+  <div class="chapter reveal">
+    <div class="ch-head" onclick="toggleChapter(this)">
+      <span class="ch-num">04</span>
+      <div class="ch-titles"><span class="ch-title">META</span><span class="ch-teaser">The results layer — case studies and outcomes.</span></div>
+      <span class="ch-tag">Links · Images</span>
+      <span class="ch-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+    </div>
+    <div class="ch-panel"><div class="ch-inner"><div class="ch-soon"><span class="ch-soon-dot"></span><p class="ch-soon-t"><b>In development.</b> Case studies and measurable results. Links to videos + images coming.</p></div></div></div>
+  </div>
+
+  <!-- 05 GRAPHIC DESIGN -->
+  <div class="chapter reveal">
+    <div class="ch-head" onclick="toggleChapter(this)">
+      <span class="ch-num">05</span>
+      <div class="ch-titles"><span class="ch-title">Graphic Design</span><span class="ch-teaser">The full range of visual output — all kinds.</span></div>
+      <span class="ch-tag">Images</span>
+      <span class="ch-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+    </div>
+    <div class="ch-panel"><div class="ch-inner"><div class="ch-soon"><span class="ch-soon-dot"></span><p class="ch-soon-t"><b>In development.</b> The full spread of graphic work across the brand. Images coming.</p></div></div></div>
+  </div>
+
+  <!-- 06 EDITORIAL -->
+  <div class="chapter reveal">
+    <div class="ch-head" onclick="toggleChapter(this)">
+      <span class="ch-num">06</span>
+      <div class="ch-titles"><span class="ch-title">Editorial</span><span class="ch-teaser">A quarterly column in a North York magazine — written and bylined by me.</span></div>
+      <span class="ch-tag">Images</span>
+      <span class="ch-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+    </div>
+    <div class="ch-panel"><div class="ch-inner"><div class="ch-soon"><span class="ch-soon-dot"></span><p class="ch-soon-t"><b>In development.</b> Scans of the quarterly landscape-construction articles. Images coming.</p></div></div></div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-main">
+    <a href="index.html"><img src="images/Jsn_signature.png" class="foot-sig" alt="J'sn Design"></a>
+    <ul class="foot-links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="mailto:jsnt1980@gmail.com">Email</a></li>
+    </ul>
+    <span class="foot-loc">Toronto, ON · 2026</span>
+  </div>
+  <div class="foot-credit">Built with intention by <span>J'sn</span></div>
+</footer>
+
+<script>
+function toggleMenu(){document.body.classList.toggle('menu-open');}
+function closeMenu(){document.body.classList.remove('menu-open');}
+function toggleChapter(head){
+  var item=head.parentElement, open=item.classList.contains('open');
+  document.querySelectorAll('.chapter.open').forEach(function(c){if(c!==item)c.classList.remove('open');});
+  item.classList.toggle('open', !open);
+}
+
+/* Website Journey — real YouTube embed + artifact sync */
+(function(){
+  var stg=document.getElementById('wjStage'); if(!stg) return;
+  var poster=document.getElementById('wjPoster'),
+      arts=[].slice.call(stg.querySelectorAll('.art')),
+      dets=[].slice.call(stg.querySelectorAll('.det')),
+      vid=stg.getAttribute('data-yt'), times=[54,67,75,124],
+      player=null, apiReady=false, poll=null, curr=-1, pendingSeek=null;
+  function setActive(i){ if(i===curr) return; curr=i;
+    arts.forEach(function(a,x){a.classList.toggle('active',x===i);});
+    dets.forEach(function(d,x){d.classList.toggle('active',x===i);});
+  }
+  function activeFor(t){ var i=0; for(var x=0;x<times.length;x++){ if(t>=times[x]-1) i=x; } return i; }
+  function startPoll(){ if(poll) return; poll=setInterval(function(){ if(player&&player.getCurrentTime){ setActive(activeFor(player.getCurrentTime())); } },300); }
+  var tag=document.createElement('script'); tag.src='https://www.youtube.com/iframe_api'; document.head.appendChild(tag);
+  window.onYouTubeIframeAPIReady=function(){ apiReady=true; };
+  function createPlayer(){
+    player=new YT.Player('wjPlayer',{ videoId:vid,
+      playerVars:{autoplay:1,modestbranding:1,rel:0,playsinline:1},
+      events:{ 'onReady':function(){ startPoll(); if(pendingSeek!=null){ player.seekTo(pendingSeek,true); player.playVideo(); pendingSeek=null; } },
+               'onStateChange':function(e){ if(e.data===1) startPoll(); } } });
+  }
+  function ensurePlayer(seekSec){
+    stg.classList.add('playing');
+    if(player){ if(seekSec!=null){ player.seekTo(seekSec,true); player.playVideo(); } return; }
+    pendingSeek=seekSec;
+    if(apiReady) createPlayer();
+    else { var w=setInterval(function(){ if(apiReady){ clearInterval(w); createPlayer(); } },100); }
+  }
+  poster.onclick=function(){ ensurePlayer(null); };
+  arts.forEach(function(a,i){ a.onclick=function(){ setActive(i); ensurePlayer(times[i]); }; });
+  setActive(0);
+})();
+
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+</script>
+</body>
+</html>
