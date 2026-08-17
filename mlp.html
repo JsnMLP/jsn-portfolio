@@ -136,6 +136,21 @@ body.menu-open .menu-inner{transform:none;}
 .wj-close p{font-family:var(--font-quote);font-size:1.35rem;font-weight:300;line-height:1.5;color:var(--text-dark);}
 .wj-close em{color:var(--accent);font-style:italic;}
 
+/* CLIENT JOURNEY */
+.cj-lead{max-width:760px;margin-bottom:2.4rem;}
+.cj-lead p{font-size:1rem;line-height:1.85;color:var(--text-muted-light);margin-bottom:1.2rem;}
+.cj-lead p strong{color:var(--text-dark);font-weight:700;}
+.cj-video{background:var(--charcoal);border-radius:12px;position:relative;overflow:hidden;aspect-ratio:16/9;}
+.cj-poster{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;}
+.cj-stage.playing .cj-poster{display:none;}
+#cjPlayer{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.cj-chapters{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:1.4rem;}
+.cj-ch{display:flex;align-items:baseline;gap:0.9rem;text-align:left;background:none;border:1px solid var(--border-light);border-radius:8px;padding:0.85rem 1rem;cursor:pointer;font-family:var(--font-sans);transition:border-color 0.25s,background 0.25s,transform 0.25s;}
+.cj-ch:hover{border-color:var(--accent-light);transform:translateX(3px);}
+.cj-ch.on{border-color:var(--accent);background:var(--accent-pale);}
+.cj-t{font-size:0.72rem;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;flex-shrink:0;}
+.cj-l{font-size:0.85rem;color:var(--text-dark);font-weight:500;line-height:1.35;}
+
 /* FOOTER */
 footer{background:#0A0F13;padding:2.5rem 4rem;display:flex;flex-direction:column;gap:1.8rem;}
 .foot-main{display:flex;justify-content:space-between;align-items:center;}
@@ -171,6 +186,7 @@ nav{padding:1.2rem 1.5rem;}
 .wj-arts{grid-template-columns:1fr 1fr;}
 .det{grid-template-columns:1fr;gap:1.1rem;}
 .foot-main{flex-direction:column;gap:1.8rem;text-align:center;}
+.cj-chapters{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -226,7 +242,34 @@ nav{padding:1.2rem 1.5rem;}
       <span class="ch-tag">Video · Images</span>
       <span class="ch-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
     </div>
-    <div class="ch-panel"><div class="ch-inner"><div class="ch-soon"><span class="ch-soon-dot"></span><p class="ch-soon-t"><b>In development.</b> A walkthrough of the custom in-house CRM and the ballpark-estimate the client receives — the systems behind the service. Video coming.</p></div></div></div>
+    <div class="ch-panel"><div class="ch-inner">
+      <div class="cj-lead">
+        <p>Before a client ever sees a proposal, there's a system running behind it. In the winter of 2021 I built my own CRM from scratch — no off-the-shelf software, just Google Sheets, engineered so simply that anyone I hire could run it, and every client gets the same organized, professional experience.</p>
+        <p>Watch the walkthrough below, and listen for the thesis running under all of it: <strong>an organized backend is what makes the customer-facing end feel seamless.</strong> That's the whole idea — and it's how I approach every system I build.</p>
+      </div>
+      <div class="cj-stage" id="cjStage" data-yt="iIZFnvS5iAU">
+        <div class="cj-video">
+          <div class="cj-poster" id="cjPoster">
+            <div class="vbg"></div>
+            <span class="wj-tag">Walkthrough · The Custom CRM</span>
+            <button class="vplay" id="cjPlay" aria-label="Play walkthrough"><span class="ico"></span></button>
+            <span class="vlabel">The backend that runs the whole client experience</span>
+          </div>
+          <div id="cjPlayer"></div>
+        </div>
+        <div class="cj-chapters">
+          <button class="cj-ch on" data-t="0"><span class="cj-t">0:00</span><span class="cj-l">The problem — one system instead of five subscriptions</span></button>
+          <button class="cj-ch" data-t="74"><span class="cj-t">1:14</span><span class="cj-l">The philosophy — simple enough for anyone to run</span></button>
+          <button class="cj-ch" data-t="112"><span class="cj-t">1:52</span><span class="cj-l">Prospects, notes &amp; photos</span></button>
+          <button class="cj-ch" data-t="156"><span class="cj-t">2:36</span><span class="cj-l">The step-by-step workflow logic</span></button>
+          <button class="cj-ch" data-t="196"><span class="cj-t">3:16</span><span class="cj-l">Price &amp; notes sketchpad, and the to-do list</span></button>
+          <button class="cj-ch" data-t="268"><span class="cj-t">4:28</span><span class="cj-l">Cost breakdown → the auto-generated ballpark estimate</span></button>
+          <button class="cj-ch" data-t="335"><span class="cj-t">5:35</span><span class="cj-l">Quotes, invoices &amp; receipts — three payment templates</span></button>
+          <button class="cj-ch" data-t="450"><span class="cj-t">7:30</span><span class="cj-l">Expense archiving &amp; labor hours</span></button>
+          <button class="cj-ch" data-t="514"><span class="cj-t">8:34</span><span class="cj-l">The spec-sheet PDF — radical transparency for the homeowner</span></button>
+        </div>
+      </div>
+    </div></div>
   </div>
 
   <!-- 02 WEBSITE JOURNEY — showpiece (open by default) -->
@@ -380,6 +423,14 @@ function toggleChapter(head){
   item.classList.toggle('open', !open);
 }
 
+/* shared YouTube IFrame API loader */
+window.__ytReady=window.__ytReady||false; window.__ytCbs=window.__ytCbs||[];
+if(!window.__ytLoading){ window.__ytLoading=true;
+  var __yt=document.createElement('script'); __yt.src='https://www.youtube.com/iframe_api'; document.head.appendChild(__yt);
+  window.onYouTubeIframeAPIReady=function(){ window.__ytReady=true; window.__ytCbs.forEach(function(cb){cb();}); window.__ytCbs=[]; };
+}
+function whenYT(cb){ if(window.__ytReady) cb(); else window.__ytCbs.push(cb); }
+
 /* Website Journey — real YouTube embed + artifact sync */
 (function(){
   var stg=document.getElementById('wjStage'); if(!stg) return;
@@ -387,15 +438,13 @@ function toggleChapter(head){
       arts=[].slice.call(stg.querySelectorAll('.art')),
       dets=[].slice.call(stg.querySelectorAll('.det')),
       vid=stg.getAttribute('data-yt'), times=[54,67,75,124],
-      player=null, apiReady=false, poll=null, curr=-1, pendingSeek=null;
+      player=null, poll=null, curr=-1, pendingSeek=null;
   function setActive(i){ if(i===curr) return; curr=i;
     arts.forEach(function(a,x){a.classList.toggle('active',x===i);});
     dets.forEach(function(d,x){d.classList.toggle('active',x===i);});
   }
   function activeFor(t){ var i=0; for(var x=0;x<times.length;x++){ if(t>=times[x]-1) i=x; } return i; }
   function startPoll(){ if(poll) return; poll=setInterval(function(){ if(player&&player.getCurrentTime){ setActive(activeFor(player.getCurrentTime())); } },300); }
-  var tag=document.createElement('script'); tag.src='https://www.youtube.com/iframe_api'; document.head.appendChild(tag);
-  window.onYouTubeIframeAPIReady=function(){ apiReady=true; };
   function createPlayer(){
     player=new YT.Player('wjPlayer',{ videoId:vid,
       playerVars:{autoplay:1,modestbranding:1,rel:0,playsinline:1},
@@ -405,13 +454,37 @@ function toggleChapter(head){
   function ensurePlayer(seekSec){
     stg.classList.add('playing');
     if(player){ if(seekSec!=null){ player.seekTo(seekSec,true); player.playVideo(); } return; }
-    pendingSeek=seekSec;
-    if(apiReady) createPlayer();
-    else { var w=setInterval(function(){ if(apiReady){ clearInterval(w); createPlayer(); } },100); }
+    pendingSeek=seekSec; whenYT(createPlayer);
   }
   poster.onclick=function(){ ensurePlayer(null); };
   arts.forEach(function(a,i){ a.onclick=function(){ setActive(i); ensurePlayer(times[i]); }; });
   setActive(0);
+})();
+
+/* Client Journey — clean embed + click-to-jump chapters */
+(function(){
+  var stg=document.getElementById('cjStage'); if(!stg) return;
+  var poster=document.getElementById('cjPoster'),
+      chs=[].slice.call(stg.querySelectorAll('.cj-ch')),
+      vid=stg.getAttribute('data-yt'),
+      times=chs.map(function(c){return parseInt(c.getAttribute('data-t'),10);}),
+      player=null, poll=null, curr=-1, pendingSeek=null;
+  function setOn(i){ if(i===curr) return; curr=i; chs.forEach(function(c,x){c.classList.toggle('on',x===i);}); }
+  function onFor(t){ var i=0; for(var x=0;x<times.length;x++){ if(t>=times[x]-1) i=x; } return i; }
+  function startPoll(){ if(poll) return; poll=setInterval(function(){ if(player&&player.getCurrentTime){ setOn(onFor(player.getCurrentTime())); } },400); }
+  function createPlayer(){
+    player=new YT.Player('cjPlayer',{ videoId:vid,
+      playerVars:{autoplay:1,modestbranding:1,rel:0,playsinline:1},
+      events:{ 'onReady':function(){ startPoll(); if(pendingSeek!=null){ player.seekTo(pendingSeek,true); player.playVideo(); pendingSeek=null; } },
+               'onStateChange':function(e){ if(e.data===1) startPoll(); } } });
+  }
+  function ensurePlayer(seekSec){
+    stg.classList.add('playing');
+    if(player){ if(seekSec!=null){ player.seekTo(seekSec,true); player.playVideo(); } return; }
+    pendingSeek=seekSec; whenYT(createPlayer);
+  }
+  poster.onclick=function(){ ensurePlayer(null); };
+  chs.forEach(function(c,i){ c.onclick=function(){ setOn(i); ensurePlayer(times[i]); }; });
 })();
 
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{threshold:0.08});
