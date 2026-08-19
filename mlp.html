@@ -157,6 +157,28 @@ body.menu-open .menu-inner{transform:none;}
 .ig-stat-l{font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:var(--text-muted-light);margin-top:-0.3rem;}
 .ig-copy p:last-child{font-size:0.95rem;line-height:1.75;color:var(--text-muted-light);margin-top:0.4rem;}
 
+/* IG CAROUSEL */
+.ig-carousel-wrap{position:relative;margin-top:0.4rem;}
+.ig-carousel{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0.2rem 0.2rem 0.7rem;scrollbar-width:none;}
+.ig-carousel::-webkit-scrollbar{display:none;}
+.ig-card{flex:0 0 auto;width:270px;scroll-snap-align:start;background:#FBF8F4;border:1px solid var(--border-light);border-radius:11px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;}
+.ig-card:hover{transform:translateY(-4px);box-shadow:0 14px 28px -18px rgba(28,35,41,0.45);}
+.ig-card-img{aspect-ratio:4/3;background:var(--warm-mid);overflow:hidden;}
+.ig-card-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.ig-card-cap{padding:0.9rem 1rem 1.1rem;}
+.ig-card-cap p{font-size:0.84rem;font-weight:600;color:var(--text-dark);line-height:1.35;}
+.ig-card.placeholder .ig-card-img{display:flex;align-items:center;justify-content:center;}
+.ig-card.placeholder .ig-card-img span{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#B9AE9F;}
+.ig-card.placeholder .ig-card-cap p{color:var(--text-muted-light);font-weight:500;font-style:italic;}
+.ig-arr{position:absolute;top:36%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:var(--accent-light);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;box-shadow:0 8px 18px -8px rgba(28,35,41,0.4);transition:transform 0.2s,opacity 0.2s;color:#FAF8F6;}
+.ig-arr:hover{transform:translateY(-50%) scale(1.07);}
+.ig-arr-l{left:-14px;}
+.ig-arr-r{right:-14px;}
+.ig-arr[disabled]{opacity:0.22;cursor:default;}
+.ig-dots{display:flex;gap:0.4rem;justify-content:center;margin-top:0.5rem;}
+.ig-dot{width:6px;height:6px;border-radius:50%;background:var(--border-light);transition:background 0.25s,transform 0.25s;cursor:pointer;}
+.ig-dot.on{background:var(--accent);transform:scale(1.35);}
+
 /* CLIENT JOURNEY */
 .cj-lead{max-width:760px;margin-bottom:2.4rem;}
 .cj-lead p{font-size:1rem;line-height:1.85;color:var(--text-muted-light);margin-bottom:1.2rem;}
@@ -210,6 +232,8 @@ nav{padding:1.2rem 1.5rem;}
 .cj-chapters{grid-template-columns:1fr;}
 .ig-featured{grid-template-columns:1fr;padding:1.4rem;}
 .ig-video{max-width:220px;}
+.ig-card{width:76vw;max-width:270px;}
+.ig-arr{display:none;}
 }
 </style>
 </head>
@@ -411,7 +435,22 @@ nav{padding:1.2rem 1.5rem;}
         </div>
       </div>
 
-      <div class="ch-soon"><span class="ch-soon-dot"></span><p class="ch-soon-t"><b>Curated selects coming next.</b> A handful of the strongest posts from the account — chosen, not just posted.</p></div>
+      <div class="ig-carousel-wrap">
+        <button class="ig-arr ig-arr-l" id="igPrev" aria-label="Previous"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <div class="ig-carousel" id="igCarousel">
+          <div class="ig-card">
+            <div class="ig-card-img"><img src="images/mlp_ig_railings.jpg" alt="Ornamental iron railing and steps — My Landscaping Project"></div>
+            <div class="ig-card-cap"><p>Ornamental iron, framed right.</p></div>
+          </div>
+          <div class="ig-card placeholder"><div class="ig-card-img"><span>More coming</span></div><div class="ig-card-cap"><p>Additional selects on the way.</p></div></div>
+          <div class="ig-card placeholder"><div class="ig-card-img"><span>More coming</span></div><div class="ig-card-cap"><p>Additional selects on the way.</p></div></div>
+          <div class="ig-card placeholder"><div class="ig-card-img"><span>More coming</span></div><div class="ig-card-cap"><p>Additional selects on the way.</p></div></div>
+          <div class="ig-card placeholder"><div class="ig-card-img"><span>More coming</span></div><div class="ig-card-cap"><p>Additional selects on the way.</p></div></div>
+          <div class="ig-card placeholder"><div class="ig-card-img"><span>More coming</span></div><div class="ig-card-cap"><p>Additional selects on the way.</p></div></div>
+        </div>
+        <button class="ig-arr ig-arr-r" id="igNext" aria-label="Next"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+      </div>
+      <div class="ig-dots" id="igDots"></div>
 
     </div></div>
   </div>
@@ -548,6 +587,28 @@ function whenYT(cb){ if(window.__ytReady) cb(); else window.__ytCbs.push(cb); }
   }
   function ensurePlayer(){ stg.classList.add('playing'); if(player) return; whenYT(createPlayer); }
   poster.onclick=function(){ ensurePlayer(); };
+})();
+
+/* Instagram — curated carousel */
+(function(){
+  var track=document.getElementById('igCarousel'); if(!track) return;
+  var cards=[].slice.call(track.querySelectorAll('.ig-card'));
+  var dotsWrap=document.getElementById('igDots');
+  var prevBtn=document.getElementById('igPrev'), nextBtn=document.getElementById('igNext');
+  cards.forEach(function(_,i){ var d=document.createElement('span'); d.className='ig-dot'+(i===0?' on':''); dotsWrap.appendChild(d); });
+  var dots=[].slice.call(dotsWrap.children);
+  function step(){ var r=cards[0].getBoundingClientRect(); var gap=16; return r.width+gap; }
+  function update(){
+    var idx=Math.round(track.scrollLeft/step());
+    dots.forEach(function(d,i){ d.classList.toggle('on', i===idx); });
+    prevBtn.disabled = track.scrollLeft<=4;
+    nextBtn.disabled = track.scrollLeft >= track.scrollWidth-track.clientWidth-4;
+  }
+  track.addEventListener('scroll', function(){ window.requestAnimationFrame(update); }, {passive:true});
+  prevBtn.onclick=function(){ track.scrollBy({left:-step(),behavior:'smooth'}); };
+  nextBtn.onclick=function(){ track.scrollBy({left:step(),behavior:'smooth'}); };
+  dots.forEach(function(d,i){ d.onclick=function(){ track.scrollTo({left:i*step(),behavior:'smooth'}); }; });
+  update();
 })();
 
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{threshold:0.08});
