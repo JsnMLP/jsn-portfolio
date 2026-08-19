@@ -154,10 +154,10 @@ body.menu-open .menu-inner{transform:none;}
 .ig-reel-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .ig-reel-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,35,41,0.08) 0%,rgba(28,35,41,0.0) 30%,rgba(10,13,15,0.78) 100%);}
 .ig-reel-poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:0.9rem;z-index:2;}
-.ig-reel.vid .ig-reel-poster{cursor:pointer;}
-.ig-reel.playing .ig-reel-poster{display:none;}
 .ig-reel.playing .ig-reel-bg,.ig-reel.playing .ig-reel-shade{display:none;}
 .ig-reel-player{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.ig-reel{cursor:pointer;}
+.ig-reel.placeholder{cursor:default;}
 .ig-reel-badge{align-self:flex-start;font-size:0.54rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--accent-light);padding:0.3rem 0.65rem;border-radius:100px;}
 .ig-reel-badge.top{background:var(--accent);}
 .ig-reel-play-wrap{display:flex;justify-content:center;}
@@ -173,6 +173,17 @@ body.menu-open .menu-inner{transform:none;}
 .ig-dots{display:flex;gap:0.4rem;justify-content:center;margin-top:0.3rem;}
 .ig-dot{width:6px;height:6px;border-radius:50%;background:var(--border-light);transition:background 0.25s,transform 0.25s;cursor:pointer;}
 .ig-dot.on{background:var(--accent);transform:scale(1.35);}
+
+/* IG LIGHTBOX — reels take over the screen on click */
+.ig-lightbox{position:fixed;inset:0;z-index:500;background:rgba(10,13,15,0.94);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity 0.35s ease,visibility 0.35s ease;padding:3rem 2rem;}
+.ig-lightbox.open{opacity:1;visibility:visible;}
+.ig-lb-close{position:absolute;top:1.6rem;right:2rem;background:none;border:none;color:#FAF8F6;font-size:2.4rem;font-weight:300;line-height:1;cursor:pointer;z-index:2;opacity:0.7;transition:opacity 0.2s;}
+.ig-lb-close:hover{opacity:1;}
+.ig-lb-video{display:none;position:relative;width:min(88vw,calc(84vh * 9 / 16));aspect-ratio:9/16;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,0.65);}
+.ig-lightbox.mode-video .ig-lb-video{display:block;}
+.ig-lb-player{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.ig-lb-img{display:none;max-width:92vw;max-height:86vh;border-radius:10px;box-shadow:0 30px 70px -20px rgba(0,0,0,0.65);object-fit:contain;}
+.ig-lightbox.mode-img .ig-lb-img{display:block;}
 
 /* CLIENT JOURNEY */
 .cj-lead{max-width:760px;margin-bottom:2.4rem;}
@@ -422,7 +433,6 @@ nav{padding:1.2rem 1.5rem;}
               <div class="ig-reel-play-wrap"><button class="ig-reel-play" aria-label="Play video"><span class="ico"></span></button></div>
               <span class="ig-reel-cap">&ldquo;Need Your Porch Renovated?&rdquo;</span>
             </div>
-            <div class="ig-reel-player"></div>
           </div>
 
           <!-- Reel 2: deck staining video -->
@@ -434,7 +444,6 @@ nav{padding:1.2rem 1.5rem;}
               <div class="ig-reel-play-wrap"><button class="ig-reel-play" aria-label="Play video"><span class="ico"></span></button></div>
               <span class="ig-reel-cap">&ldquo;Don't Replace It — Restore It&rdquo;</span>
             </div>
-            <div class="ig-reel-player"></div>
           </div>
 
           <!-- Reel 3: aluminum railings photo -->
@@ -495,6 +504,13 @@ nav{padding:1.2rem 1.5rem;}
   </div>
 
 </section>
+
+<!-- IG LIGHTBOX -->
+<div class="ig-lightbox" id="igLightbox" aria-hidden="true">
+  <button class="ig-lb-close" id="igLbClose" aria-label="Close">&times;</button>
+  <div class="ig-lb-video"><div class="ig-lb-player" id="igLbPlayer"></div></div>
+  <img class="ig-lb-img" id="igLbImg" src="" alt="">
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -583,29 +599,47 @@ function whenYT(cb){ if(window.__ytReady) cb(); else window.__ytCbs.push(cb); }
   chs.forEach(function(c,i){ c.onclick=function(){ setOn(i); ensurePlayer(times[i]); }; });
 })();
 
-/* Instagram — mixed-media reel shelf: multi-video playback + variable-width snap nav */
+/* Instagram — mixed-media reel shelf: click opens a large lightbox + variable-width snap nav */
 (function(){
   var track=document.getElementById('igReels'); if(!track) return;
   var reels=[].slice.call(track.querySelectorAll('.ig-reel'));
-  var videoReels=reels.filter(function(r){return r.hasAttribute('data-yt');});
-  var players={}, currentCard=null, currentIdx=null;
 
-  videoReels.forEach(function(card,i){
-    var vid=card.getAttribute('data-yt'),
-        poster=card.querySelector('.ig-reel-poster'),
-        playerEl=card.querySelector('.ig-reel-player');
-    poster.onclick=function(){
-      if(currentCard && currentCard!==card){
-        currentCard.classList.remove('playing');
-        var prev=players[currentIdx]; if(prev&&prev.stopVideo) prev.stopVideo();
-      }
-      card.classList.add('playing'); currentCard=card; currentIdx=i;
-      if(players[i]){ players[i].playVideo(); return; }
-      whenYT(function(){
-        players[i]=new YT.Player(playerEl,{ videoId:vid,
-          playerVars:{autoplay:1,modestbranding:1,rel:0,playsinline:1} });
-      });
-    };
+  /* lightbox — reels take over the screen on click */
+  var lb=document.getElementById('igLightbox'),
+      lbClose=document.getElementById('igLbClose'),
+      lbImg=document.getElementById('igLbImg'),
+      lbPlayer=null;
+
+  function openVideo(vid){
+    lb.classList.add('open','mode-video'); lb.classList.remove('mode-img');
+    document.body.style.overflow='hidden';
+    if(lbPlayer && lbPlayer.loadVideoById){ lbPlayer.loadVideoById(vid); return; }
+    whenYT(function(){
+      lbPlayer=new YT.Player('igLbPlayer',{ videoId:vid,
+        playerVars:{autoplay:1,modestbranding:1,rel:0,playsinline:1} });
+    });
+  }
+  function openImage(src,alt){
+    lb.classList.add('open','mode-img'); lb.classList.remove('mode-video');
+    document.body.style.overflow='hidden';
+    lbImg.src=src; lbImg.alt=alt||'';
+  }
+  function closeLb(){
+    lb.classList.remove('open');
+    document.body.style.overflow='';
+    if(lbPlayer && lbPlayer.stopVideo) lbPlayer.stopVideo();
+  }
+  lbClose.onclick=closeLb;
+  lb.addEventListener('click', function(e){ if(e.target===lb) closeLb(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLb(); });
+
+  reels.forEach(function(card){
+    if(card.classList.contains('placeholder')) return;
+    var vid=card.getAttribute('data-yt');
+    card.addEventListener('click', function(){
+      if(vid){ openVideo(vid); }
+      else{ var img=card.querySelector('.ig-reel-bg'); openImage(img.src, img.alt); }
+    });
   });
 
   /* variable-width snap nav — cards differ in width (vertical video vs landscape photo) */
