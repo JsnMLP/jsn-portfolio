@@ -148,6 +148,8 @@ body.menu-open .menu-inner{transform:none;}
 .ig-reel:hover{transform:translateY(-3px);}
 .ig-reel.vid{aspect-ratio:9/16;}
 .ig-reel.photo{aspect-ratio:16/9;}
+.ig-reel.post{aspect-ratio:1/1;}
+.ig-reel.post .ig-reel-count{position:absolute;top:0.85rem;right:0.85rem;z-index:2;background:rgba(10,13,15,0.55);color:#fff;font-size:0.6rem;font-weight:700;letter-spacing:0.04em;padding:0.22rem 0.5rem;border-radius:100px;backdrop-filter:blur(2px);}
 .ig-reel.placeholder{aspect-ratio:9/16;background:var(--warm-mid);display:flex;align-items:center;justify-content:center;box-shadow:none;}
 .ig-reel.placeholder:hover{transform:none;}
 .ig-reel.placeholder span{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#B9AE9F;padding:0 1.2rem;text-align:center;line-height:1.5;}
@@ -184,6 +186,24 @@ body.menu-open .menu-inner{transform:none;}
 .ig-lb-player{position:absolute;inset:0;width:100%;height:100%;border:0;}
 .ig-lb-img{display:none;max-width:92vw;max-height:86vh;border-radius:10px;box-shadow:0 30px 70px -20px rgba(0,0,0,0.65);object-fit:contain;}
 .ig-lightbox.mode-img .ig-lb-img{display:block;}
+
+/* IG LIGHTBOX — post mode (recreates the real IG post: header, swipeable images, caption) */
+.ig-lb-post{display:none;width:min(94vw,460px);max-height:90vh;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,0.65);flex-direction:column;}
+.ig-lightbox.mode-post .ig-lb-post{display:flex;}
+.ig-lb-post-head{display:flex;align-items:center;gap:0.65rem;padding:0.85rem 1rem;border-bottom:1px solid var(--border-light);flex:0 0 auto;}
+.ig-lb-post-head img{width:30px;height:30px;border-radius:50%;object-fit:contain;background:var(--charcoal);padding:4px;}
+.ig-lb-post-head span{font-weight:700;font-size:0.84rem;color:var(--text-dark);}
+.ig-lb-post-media{position:relative;aspect-ratio:1/1;background:#000;overflow:hidden;flex:0 0 auto;}
+.ig-lb-post-track{display:flex;height:100%;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);}
+.ig-lb-post-track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;}
+.ig-lb-post-nav{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.9);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--charcoal);box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.ig-lb-post-nav.l{left:0.6rem;}
+.ig-lb-post-nav.r{right:0.6rem;}
+.ig-lb-post-nav[disabled]{opacity:0;pointer-events:none;}
+.ig-lb-post-dots{position:absolute;top:0.7rem;left:50%;transform:translateX(-50%);display:flex;gap:0.32rem;z-index:2;}
+.ig-lb-post-dots span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.5);transition:background 0.2s;}
+.ig-lb-post-dots span.on{background:#fff;}
+.ig-lb-post-cap{padding:1rem 1.1rem 1.4rem;font-size:0.86rem;line-height:1.75;color:var(--text-dark);white-space:pre-line;overflow-y:auto;}
 
 /* CLIENT JOURNEY */
 .cj-lead{max-width:760px;margin-bottom:2.4rem;}
@@ -237,6 +257,8 @@ nav{padding:1.2rem 1.5rem;}
 .foot-main{flex-direction:column;gap:1.8rem;text-align:center;}
 .cj-chapters{grid-template-columns:1fr;}
 :root{--reel-h:280px;}
+.ig-lb-post{width:94vw;}
+.ig-lb-post-cap{max-height:32vh;}
 .ig-arr{display:none;}
 }
 </style>
@@ -457,6 +479,18 @@ nav{padding:1.2rem 1.5rem;}
             </div>
           </div>
 
+          <!-- Reel 4: entrance gate + fence — real Instagram carousel post -->
+          <div class="ig-reel post" data-post="gate">
+            <img class="ig-reel-bg" src="images/mlp_ig_gate_1.jpg" alt="Entrance gate and fence — Instagram post, My Landscaping Project">
+            <div class="ig-reel-shade"></div>
+            <span class="ig-reel-count">1 / 3</span>
+            <div class="ig-reel-poster">
+              <span class="ig-reel-badge">Instagram Post</span>
+              <span></span>
+              <span class="ig-reel-cap">Entrance Gate + Fence</span>
+            </div>
+          </div>
+
           <div class="ig-reel placeholder"><span>More reels coming</span></div>
           <div class="ig-reel placeholder"><span>More reels coming</span></div>
           <div class="ig-reel placeholder"><span>More reels coming</span></div>
@@ -510,6 +544,19 @@ nav{padding:1.2rem 1.5rem;}
   <button class="ig-lb-close" id="igLbClose" aria-label="Close">&times;</button>
   <div class="ig-lb-video"><div class="ig-lb-player" id="igLbPlayer"></div></div>
   <img class="ig-lb-img" id="igLbImg" src="" alt="">
+  <div class="ig-lb-post" id="igLbPost">
+    <div class="ig-lb-post-head">
+      <img src="images/mlp_logo_sliver.png" alt="MLP">
+      <span>my_landscaping_project</span>
+    </div>
+    <div class="ig-lb-post-media">
+      <div class="ig-lb-post-dots" id="igLbPostDots"></div>
+      <div class="ig-lb-post-track" id="igLbPostTrack"></div>
+      <button class="ig-lb-post-nav l" id="igLbPostPrev" aria-label="Previous photo">&lsaquo;</button>
+      <button class="ig-lb-post-nav r" id="igLbPostNext" aria-label="Next photo">&rsaquo;</button>
+    </div>
+    <div class="ig-lb-post-cap" id="igLbPostCap"></div>
+  </div>
 </div>
 
 <!-- FOOTER -->
@@ -604,6 +651,14 @@ function whenYT(cb){ if(window.__ytReady) cb(); else window.__ytCbs.push(cb); }
   var track=document.getElementById('igReels'); if(!track) return;
   var reels=[].slice.call(track.querySelectorAll('.ig-reel'));
 
+  /* real IG carousel posts — same images, same order, same swipe feel as the post itself */
+  var POSTS={
+    gate:{
+      images:['images/mlp_ig_gate_1.jpg','images/mlp_ig_gate_2.jpg','images/mlp_ig_gate_3.jpg'],
+      caption:"These homeowners were about to choose another contractor, but they called me up with a few questions to give me one last chance.\n\nUpon reviewing the other company's quote, I noticed a HUGE mistake. The company described a design completely different than what they wanted.\n\n\u274c Not listening to the client.\n\n\u2705 They loved the idea of a metal frame for the gate design = longevity.\n\nThey weren't happy with the height of the gate (as it came out of the box), so I heard their concerns and suggested reducing the height."
+    }
+  };
+
   /* lightbox — reels take over the screen on click */
   var lb=document.getElementById('igLightbox'),
       lbClose=document.getElementById('igLbClose'),
@@ -611,7 +666,7 @@ function whenYT(cb){ if(window.__ytReady) cb(); else window.__ytCbs.push(cb); }
       lbPlayer=null;
 
   function openVideo(vid){
-    lb.classList.add('open','mode-video'); lb.classList.remove('mode-img');
+    lb.classList.add('open','mode-video'); lb.classList.remove('mode-img','mode-post');
     document.body.style.overflow='hidden';
     if(lbPlayer && lbPlayer.loadVideoById){ lbPlayer.loadVideoById(vid); return; }
     whenYT(function(){
@@ -620,10 +675,42 @@ function whenYT(cb){ if(window.__ytReady) cb(); else window.__ytCbs.push(cb); }
     });
   }
   function openImage(src,alt){
-    lb.classList.add('open','mode-img'); lb.classList.remove('mode-video');
+    lb.classList.add('open','mode-img'); lb.classList.remove('mode-video','mode-post');
     document.body.style.overflow='hidden';
     lbImg.src=src; lbImg.alt=alt||'';
   }
+
+  /* post mode — recreates the real Instagram carousel post: swipeable images + full caption */
+  var lbPostTrack=document.getElementById('igLbPostTrack'),
+      lbPostDots=document.getElementById('igLbPostDots'),
+      lbPostCap=document.getElementById('igLbPostCap'),
+      lbPostPrev=document.getElementById('igLbPostPrev'),
+      lbPostNext=document.getElementById('igLbPostNext'),
+      postIdx=0, postImgs=[];
+  function renderPost(){
+    lbPostTrack.style.transform='translateX(-'+(postIdx*100)+'%)';
+    [].slice.call(lbPostDots.children).forEach(function(d,i){ d.classList.toggle('on', i===postIdx); });
+    lbPostPrev.disabled = postIdx===0;
+    lbPostNext.disabled = postIdx===postImgs.length-1;
+  }
+  function openPost(key){
+    var post=POSTS[key]; if(!post) return;
+    lb.classList.add('open','mode-post'); lb.classList.remove('mode-video','mode-img');
+    document.body.style.overflow='hidden';
+    postImgs=post.images; postIdx=0;
+    lbPostTrack.innerHTML=''; lbPostDots.innerHTML='';
+    postImgs.forEach(function(src,i){
+      var img=document.createElement('img'); img.src=src; img.alt='Entrance gate and fence — slide '+(i+1);
+      lbPostTrack.appendChild(img);
+      var d=document.createElement('span'); if(i===0) d.className='on';
+      lbPostDots.appendChild(d);
+    });
+    lbPostCap.textContent=post.caption;
+    renderPost();
+  }
+  lbPostPrev.onclick=function(){ if(postIdx>0){ postIdx--; renderPost(); } };
+  lbPostNext.onclick=function(){ if(postIdx<postImgs.length-1){ postIdx++; renderPost(); } };
+
   function closeLb(){
     lb.classList.remove('open');
     document.body.style.overflow='';
@@ -635,9 +722,10 @@ function whenYT(cb){ if(window.__ytReady) cb(); else window.__ytCbs.push(cb); }
 
   reels.forEach(function(card){
     if(card.classList.contains('placeholder')) return;
-    var vid=card.getAttribute('data-yt');
+    var vid=card.getAttribute('data-yt'), post=card.getAttribute('data-post');
     card.addEventListener('click', function(){
-      if(vid){ openVideo(vid); }
+      if(post){ openPost(post); }
+      else if(vid){ openVideo(vid); }
       else{ var img=card.querySelector('.ig-reel-bg'); openImage(img.src, img.alt); }
     });
   });
