@@ -179,7 +179,7 @@ body.menu-open .menu-inner{transform:none;}
 /* IG LIGHTBOX — reels take over the screen on click */
 .ig-lightbox{position:fixed;inset:0;z-index:500;background:rgba(10,13,15,0.94);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity 0.35s ease,visibility 0.35s ease;padding:3rem 2rem;}
 .ig-lightbox.open{opacity:1;visibility:visible;}
-.ig-lb-close{position:absolute;top:1.6rem;right:2rem;background:none;border:none;color:#FAF8F6;font-size:2.4rem;font-weight:300;line-height:1;cursor:pointer;z-index:2;opacity:0.7;transition:opacity 0.2s;}
+.ig-lb-close{position:absolute;top:1.6rem;right:2rem;background:none;border:none;color:#FAF8F6;font-size:2.4rem;font-weight:300;line-height:1;cursor:pointer;z-index:10;opacity:0.7;transition:opacity 0.2s;}
 .ig-lb-close:hover{opacity:1;}
 .ig-lb-video{display:none;position:relative;width:min(88vw,calc(84vh * 9 / 16));aspect-ratio:9/16;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,0.65);}
 .ig-lightbox.mode-video .ig-lb-video{display:block;}
@@ -193,6 +193,8 @@ body.menu-open .menu-inner{transform:none;}
 .ig-lb-post-head{display:flex;align-items:center;gap:0.65rem;padding:0.85rem 1rem;border-bottom:1px solid var(--border-light);flex:0 0 auto;}
 .ig-lb-post-head img{width:30px;height:30px;border-radius:50%;object-fit:contain;background:var(--charcoal);padding:4px;}
 .ig-lb-post-head span{font-weight:700;font-size:0.84rem;color:var(--text-dark);}
+.ig-lb-post-close{margin-left:auto;background:none;border:none;font-size:1.7rem;font-weight:300;line-height:1;color:var(--text-muted-light);cursor:pointer;padding:0 0.15rem;transition:color 0.2s;}
+.ig-lb-post-close:hover{color:var(--text-dark);}
 .ig-lb-post-media{position:relative;aspect-ratio:1/1;background:#000;overflow:hidden;flex:0 0 auto;}
 .ig-lb-post-track{display:flex;height:100%;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);}
 .ig-lb-post-track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;}
@@ -548,6 +550,7 @@ nav{padding:1.2rem 1.5rem;}
     <div class="ig-lb-post-head">
       <img src="images/mlp_logo_sliver.png" alt="MLP">
       <span>my_landscaping_project</span>
+      <button class="ig-lb-post-close" id="igLbPostClose" aria-label="Close">&times;</button>
     </div>
     <div class="ig-lb-post-media">
       <div class="ig-lb-post-dots" id="igLbPostDots"></div>
@@ -717,6 +720,8 @@ function whenYT(cb){ if(window.__ytReady) cb(); else window.__ytCbs.push(cb); }
     if(lbPlayer && lbPlayer.stopVideo) lbPlayer.stopVideo();
   }
   lbClose.onclick=closeLb;
+  var lbPostClose=document.getElementById('igLbPostClose');
+  if(lbPostClose) lbPostClose.onclick=closeLb;
   lb.addEventListener('click', function(e){ if(e.target===lb) closeLb(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLb(); });
 
