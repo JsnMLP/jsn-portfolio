@@ -136,46 +136,41 @@ body.menu-open .menu-inner{transform:none;}
 .wj-close p{font-family:var(--font-quote);font-size:1.35rem;font-weight:300;line-height:1.5;color:var(--text-dark);}
 .wj-close em{color:var(--accent);font-style:italic;}
 
-/* INSTAGRAM */
-.ig-lead{max-width:760px;margin-bottom:2.4rem;}
+/* INSTAGRAM — mixed-media reel shelf */
+.ig-lead{max-width:760px;margin-bottom:2.2rem;}
 .ig-lead p{font-size:1rem;line-height:1.85;color:var(--text-muted-light);margin-bottom:1.2rem;}
 .ig-lead p strong{color:var(--text-dark);font-weight:700;}
-.ig-featured{display:grid;grid-template-columns:0.6fr 1fr;gap:2.6rem;align-items:center;background:var(--warm-grey);border:1px solid var(--border-light);border-radius:14px;padding:2rem;margin-bottom:1.6rem;}
-.ig-video{position:relative;overflow:hidden;border-radius:12px;aspect-ratio:9/16;background:var(--charcoal);max-width:270px;margin:0 auto;box-shadow:0 20px 40px -20px rgba(28,35,41,0.35);}
-.ig-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.ig-video .vshade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,35,41,0.1) 0%,rgba(28,35,41,0.02) 35%,rgba(10,13,15,0.75) 100%);}
-.ig-poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;z-index:2;padding:1.1rem;}
-.ig-stage.playing .ig-poster{display:none;}
-.ig-stage.playing .ig-bg,.ig-stage.playing .vshade{display:none;}
-#igPlayer{position:absolute;inset:0;width:100%;height:100%;border:0;}
-.ig-tag{font-size:0.56rem;letter-spacing:0.13em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--accent-light);align-self:flex-start;padding:0.32rem 0.7rem;border-radius:100px;}
-.ig-play-wrap{display:flex;justify-content:center;}
-.ig-play-wrap .vplay{width:58px;height:58px;}
-.ig-label{font-family:var(--font-quote);font-size:0.98rem;font-style:italic;font-weight:400;color:#fff;line-height:1.3;}
-.ig-copy{display:flex;flex-direction:column;gap:0.9rem;}
-.ig-stat-n{font-family:var(--font-quote);font-size:3.2rem;font-weight:500;color:var(--accent);line-height:1;}
-.ig-stat-l{font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:var(--text-muted-light);margin-top:-0.3rem;}
-.ig-copy p:last-child{font-size:0.95rem;line-height:1.75;color:var(--text-muted-light);margin-top:0.4rem;}
-
-/* IG CAROUSEL */
-.ig-carousel-wrap{position:relative;margin-top:0.4rem;}
-.ig-carousel{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0.2rem 0.2rem 0.7rem;scrollbar-width:none;}
-.ig-carousel::-webkit-scrollbar{display:none;}
-.ig-card{flex:0 0 auto;width:270px;scroll-snap-align:start;background:#FBF8F4;border:1px solid var(--border-light);border-radius:11px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;}
-.ig-card:hover{transform:translateY(-4px);box-shadow:0 14px 28px -18px rgba(28,35,41,0.45);}
-.ig-card-img{aspect-ratio:4/3;background:var(--warm-mid);overflow:hidden;}
-.ig-card-img img{width:100%;height:100%;object-fit:cover;display:block;}
-.ig-card-cap{padding:0.9rem 1rem 1.1rem;}
-.ig-card-cap p{font-size:0.84rem;font-weight:600;color:var(--text-dark);line-height:1.35;}
-.ig-card.placeholder .ig-card-img{display:flex;align-items:center;justify-content:center;}
-.ig-card.placeholder .ig-card-img span{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#B9AE9F;}
-.ig-card.placeholder .ig-card-cap p{color:var(--text-muted-light);font-weight:500;font-style:italic;}
-.ig-arr{position:absolute;top:36%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:var(--accent-light);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;box-shadow:0 8px 18px -8px rgba(28,35,41,0.4);transition:transform 0.2s,opacity 0.2s;color:#FAF8F6;}
+:root{--reel-h:380px;}
+.ig-reels-wrap{position:relative;}
+.ig-reels{display:flex;gap:1.1rem;align-items:flex-end;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0.4rem 0.2rem 0.9rem;scrollbar-width:none;}
+.ig-reels::-webkit-scrollbar{display:none;}
+.ig-reel{flex:0 0 auto;height:var(--reel-h);scroll-snap-align:start;border-radius:13px;overflow:hidden;position:relative;background:var(--charcoal);box-shadow:0 16px 32px -20px rgba(28,35,41,0.4);transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);}
+.ig-reel:hover{transform:translateY(-3px);}
+.ig-reel.vid{aspect-ratio:9/16;}
+.ig-reel.photo{aspect-ratio:16/9;}
+.ig-reel.placeholder{aspect-ratio:9/16;background:var(--warm-mid);display:flex;align-items:center;justify-content:center;box-shadow:none;}
+.ig-reel.placeholder:hover{transform:none;}
+.ig-reel.placeholder span{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#B9AE9F;padding:0 1.2rem;text-align:center;line-height:1.5;}
+.ig-reel-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.ig-reel-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,35,41,0.08) 0%,rgba(28,35,41,0.0) 30%,rgba(10,13,15,0.78) 100%);}
+.ig-reel-poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:0.9rem;z-index:2;}
+.ig-reel.vid .ig-reel-poster{cursor:pointer;}
+.ig-reel.playing .ig-reel-poster{display:none;}
+.ig-reel.playing .ig-reel-bg,.ig-reel.playing .ig-reel-shade{display:none;}
+.ig-reel-player{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.ig-reel-badge{align-self:flex-start;font-size:0.54rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--accent-light);padding:0.3rem 0.65rem;border-radius:100px;}
+.ig-reel-badge.top{background:var(--accent);}
+.ig-reel-play-wrap{display:flex;justify-content:center;}
+.ig-reel-play{width:46px;height:46px;border-radius:50%;background:var(--accent-light);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform 0.25s ease;}
+.ig-reel-play:hover{transform:scale(1.08);}
+.ig-reel-play .ico{width:0;height:0;border-style:solid;border-width:8px 0 8px 13px;border-color:transparent transparent transparent #FAF8F6;margin-left:2px;}
+.ig-reel-cap{font-family:var(--font-quote);font-size:0.86rem;font-style:italic;font-weight:400;color:#fff;line-height:1.32;}
+.ig-arr{position:absolute;top:42%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:var(--accent-light);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;box-shadow:0 8px 18px -8px rgba(28,35,41,0.4);transition:transform 0.2s,opacity 0.2s;color:#FAF8F6;}
 .ig-arr:hover{transform:translateY(-50%) scale(1.07);}
 .ig-arr-l{left:-14px;}
 .ig-arr-r{right:-14px;}
 .ig-arr[disabled]{opacity:0.22;cursor:default;}
-.ig-dots{display:flex;gap:0.4rem;justify-content:center;margin-top:0.5rem;}
+.ig-dots{display:flex;gap:0.4rem;justify-content:center;margin-top:0.3rem;}
 .ig-dot{width:6px;height:6px;border-radius:50%;background:var(--border-light);transition:background 0.25s,transform 0.25s;cursor:pointer;}
 .ig-dot.on{background:var(--accent);transform:scale(1.35);}
 
@@ -230,9 +225,7 @@ nav{padding:1.2rem 1.5rem;}
 .det{grid-template-columns:1fr;gap:1.1rem;}
 .foot-main{flex-direction:column;gap:1.8rem;text-align:center;}
 .cj-chapters{grid-template-columns:1fr;}
-.ig-featured{grid-template-columns:1fr;padding:1.4rem;}
-.ig-video{max-width:220px;}
-.ig-card{width:76vw;max-width:270px;}
+:root{--reel-h:280px;}
 .ig-arr{display:none;}
 }
 </style>
@@ -415,39 +408,52 @@ nav{padding:1.2rem 1.5rem;}
         <p>My Landscaping Project's Instagram isn't run by an agency or a content team. It's one person handling the full pipeline — shooting the footage, editing it, narrating it, designing every graphic, writing every caption, and publishing on a schedule. <strong>That end-to-end ownership is the actual skill on display here</strong> — proof I can run content production start to finish, not just hand off a finished file.</p>
       </div>
 
-      <div class="ig-featured">
-        <div class="ig-stage" id="igStage" data-yt="28wsQGbcNwg">
-          <div class="ig-video">
-            <img class="ig-bg" src="images/ig_porch_poster.jpg" alt="Porch before renovation — My Landscaping Project">
-            <div class="vshade"></div>
-            <div class="ig-poster" id="igPoster">
-              <span class="ig-tag">Instagram · Top Performer</span>
-              <div class="ig-play-wrap"><button class="vplay" id="igPlay" aria-label="Play video"><span class="ico"></span></button></div>
-              <span class="ig-label">&ldquo;Need Your Porch Renovated?&rdquo;</span>
-            </div>
-            <div id="igPlayer"></div>
-          </div>
-        </div>
-        <div class="ig-copy">
-          <p class="ig-stat-n">4,025</p>
-          <p class="ig-stat-l">Views on Instagram</p>
-          <p>Shot, cut, and captioned by me the same week the porch was finished — a simple before-shot hook that outperformed every other post on the account. Filmed on my phone, edited and narrated by me, no outside help.</p>
-        </div>
-      </div>
-
-      <div class="ig-carousel-wrap">
+      <div class="ig-reels-wrap">
         <button class="ig-arr ig-arr-l" id="igPrev" aria-label="Previous"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-        <div class="ig-carousel" id="igCarousel">
-          <div class="ig-card">
-            <div class="ig-card-img"><img src="images/mlp_ig_railings.jpg" alt="Ornamental aluminum railing and steps — My Landscaping Project"></div>
-            <div class="ig-card-cap"><p>Ornamental aluminum, framed right.</p></div>
+
+        <div class="ig-reels" id="igReels">
+
+          <!-- Reel 1: top performer video -->
+          <div class="ig-reel vid" data-yt="28wsQGbcNwg">
+            <img class="ig-reel-bg" src="images/ig_porch_poster.jpg" alt="Porch before renovation — My Landscaping Project">
+            <div class="ig-reel-shade"></div>
+            <div class="ig-reel-poster">
+              <span class="ig-reel-badge top">4,025 views · Top Performer</span>
+              <div class="ig-reel-play-wrap"><button class="ig-reel-play" aria-label="Play video"><span class="ico"></span></button></div>
+              <span class="ig-reel-cap">&ldquo;Need Your Porch Renovated?&rdquo;</span>
+            </div>
+            <div class="ig-reel-player"></div>
           </div>
-          <div class="ig-card placeholder"><div class="ig-card-img"><span>More coming</span></div><div class="ig-card-cap"><p>Additional selects on the way.</p></div></div>
-          <div class="ig-card placeholder"><div class="ig-card-img"><span>More coming</span></div><div class="ig-card-cap"><p>Additional selects on the way.</p></div></div>
-          <div class="ig-card placeholder"><div class="ig-card-img"><span>More coming</span></div><div class="ig-card-cap"><p>Additional selects on the way.</p></div></div>
-          <div class="ig-card placeholder"><div class="ig-card-img"><span>More coming</span></div><div class="ig-card-cap"><p>Additional selects on the way.</p></div></div>
-          <div class="ig-card placeholder"><div class="ig-card-img"><span>More coming</span></div><div class="ig-card-cap"><p>Additional selects on the way.</p></div></div>
+
+          <!-- Reel 2: deck staining video -->
+          <div class="ig-reel vid" data-yt="e83kQ_7Jl9A">
+            <img class="ig-reel-bg" src="images/ig_deckstain_poster.jpg" alt="Rain on freshly stained deck boards — My Landscaping Project">
+            <div class="ig-reel-shade"></div>
+            <div class="ig-reel-poster">
+              <span class="ig-reel-badge">Deck Staining</span>
+              <div class="ig-reel-play-wrap"><button class="ig-reel-play" aria-label="Play video"><span class="ico"></span></button></div>
+              <span class="ig-reel-cap">&ldquo;Don't Replace It — Restore It&rdquo;</span>
+            </div>
+            <div class="ig-reel-player"></div>
+          </div>
+
+          <!-- Reel 3: aluminum railings photo -->
+          <div class="ig-reel photo">
+            <img class="ig-reel-bg" src="images/mlp_ig_railings.jpg" alt="Ornamental aluminum railing and steps — My Landscaping Project">
+            <div class="ig-reel-shade"></div>
+            <div class="ig-reel-poster">
+              <span class="ig-reel-badge">Featured Post</span>
+              <span></span>
+              <span class="ig-reel-cap">Ornamental aluminum, framed right.</span>
+            </div>
+          </div>
+
+          <div class="ig-reel placeholder"><span>More reels coming</span></div>
+          <div class="ig-reel placeholder"><span>More reels coming</span></div>
+          <div class="ig-reel placeholder"><span>More reels coming</span></div>
+
         </div>
+
         <button class="ig-arr ig-arr-r" id="igNext" aria-label="Next"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
       </div>
       <div class="ig-dots" id="igDots"></div>
@@ -577,37 +583,52 @@ function whenYT(cb){ if(window.__ytReady) cb(); else window.__ytCbs.push(cb); }
   chs.forEach(function(c,i){ c.onclick=function(){ setOn(i); ensurePlayer(times[i]); }; });
 })();
 
-/* Instagram — single click-to-play embed */
+/* Instagram — mixed-media reel shelf: multi-video playback + variable-width snap nav */
 (function(){
-  var stg=document.getElementById('igStage'); if(!stg) return;
-  var poster=document.getElementById('igPoster'), vid=stg.getAttribute('data-yt'), player=null;
-  function createPlayer(){
-    player=new YT.Player('igPlayer',{ videoId:vid,
-      playerVars:{autoplay:1,modestbranding:1,rel:0,playsinline:1} });
-  }
-  function ensurePlayer(){ stg.classList.add('playing'); if(player) return; whenYT(createPlayer); }
-  poster.onclick=function(){ ensurePlayer(); };
-})();
+  var track=document.getElementById('igReels'); if(!track) return;
+  var reels=[].slice.call(track.querySelectorAll('.ig-reel'));
+  var videoReels=reels.filter(function(r){return r.hasAttribute('data-yt');});
+  var players={}, currentCard=null, currentIdx=null;
 
-/* Instagram — curated carousel */
-(function(){
-  var track=document.getElementById('igCarousel'); if(!track) return;
-  var cards=[].slice.call(track.querySelectorAll('.ig-card'));
-  var dotsWrap=document.getElementById('igDots');
-  var prevBtn=document.getElementById('igPrev'), nextBtn=document.getElementById('igNext');
-  cards.forEach(function(_,i){ var d=document.createElement('span'); d.className='ig-dot'+(i===0?' on':''); dotsWrap.appendChild(d); });
+  videoReels.forEach(function(card,i){
+    var vid=card.getAttribute('data-yt'),
+        poster=card.querySelector('.ig-reel-poster'),
+        playerEl=card.querySelector('.ig-reel-player');
+    poster.onclick=function(){
+      if(currentCard && currentCard!==card){
+        currentCard.classList.remove('playing');
+        var prev=players[currentIdx]; if(prev&&prev.stopVideo) prev.stopVideo();
+      }
+      card.classList.add('playing'); currentCard=card; currentIdx=i;
+      if(players[i]){ players[i].playVideo(); return; }
+      whenYT(function(){
+        players[i]=new YT.Player(playerEl,{ videoId:vid,
+          playerVars:{autoplay:1,modestbranding:1,rel:0,playsinline:1} });
+      });
+    };
+  });
+
+  /* variable-width snap nav — cards differ in width (vertical video vs landscape photo) */
+  var dotsWrap=document.getElementById('igDots'),
+      prevBtn=document.getElementById('igPrev'), nextBtn=document.getElementById('igNext');
+  reels.forEach(function(_,i){ var d=document.createElement('span'); d.className='ig-dot'+(i===0?' on':''); dotsWrap.appendChild(d); });
   var dots=[].slice.call(dotsWrap.children);
-  function step(){ var r=cards[0].getBoundingClientRect(); var gap=16; return r.width+gap; }
+  function nearestIndex(){
+    var target=track.scrollLeft, best=0, bestDist=Infinity;
+    reels.forEach(function(c,i){ var d=Math.abs(c.offsetLeft-track.offsetLeft-target); if(d<bestDist){bestDist=d;best=i;} });
+    return best;
+  }
+  function scrollToIndex(i){ i=Math.max(0,Math.min(reels.length-1,i)); track.scrollTo({left:reels[i].offsetLeft-track.offsetLeft,behavior:'smooth'}); }
   function update(){
-    var idx=Math.round(track.scrollLeft/step());
+    var idx=nearestIndex();
     dots.forEach(function(d,i){ d.classList.toggle('on', i===idx); });
     prevBtn.disabled = track.scrollLeft<=4;
     nextBtn.disabled = track.scrollLeft >= track.scrollWidth-track.clientWidth-4;
   }
   track.addEventListener('scroll', function(){ window.requestAnimationFrame(update); }, {passive:true});
-  prevBtn.onclick=function(){ track.scrollBy({left:-step(),behavior:'smooth'}); };
-  nextBtn.onclick=function(){ track.scrollBy({left:step(),behavior:'smooth'}); };
-  dots.forEach(function(d,i){ d.onclick=function(){ track.scrollTo({left:i*step(),behavior:'smooth'}); }; });
+  prevBtn.onclick=function(){ scrollToIndex(nearestIndex()-1); };
+  nextBtn.onclick=function(){ scrollToIndex(nearestIndex()+1); };
+  dots.forEach(function(d,i){ d.onclick=function(){ scrollToIndex(i); }; });
   update();
 })();
 
