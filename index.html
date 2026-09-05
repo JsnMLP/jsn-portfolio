@@ -207,19 +207,27 @@ transition:padding-left 0.4s cubic-bezier(0.16,1,0.3,1);
 .acc-logo{
 width:56px;height:56px;border-radius:8px;background:#fff;border:1px solid var(--border-light);
 display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;
-animation:accLogoPing 2.6s ease-out infinite;
 }
-@keyframes accLogoPing{
-0%{box-shadow:0 0 0 0 rgba(172,49,16,0.28);}
-70%{box-shadow:0 0 0 11px rgba(172,49,16,0);}
-100%{box-shadow:0 0 0 0 rgba(172,49,16,0);}
-}
-.acc-item.open .acc-logo{animation:none;}
 .acc-logo img{width:100%;height:100%;object-fit:contain;padding:7px;}
 .acc-logo span{font-size:0.72rem;font-weight:800;letter-spacing:0.03em;color:var(--accent);}
 .acc-num{font-size:0.85rem;font-weight:500;color:var(--text-muted-light);}
-.acc-title{font-family:var(--font-sans);font-size:2rem;font-weight:300;color:var(--text-dark);letter-spacing:-0.015em;transition:color 0.3s;}
+.acc-title{font-family:var(--font-sans);font-size:2rem;font-weight:300;color:var(--text-dark);letter-spacing:-0.015em;transition:color 0.3s;position:relative;display:inline-block;}
 .acc-head:hover .acc-title{color:var(--accent);}
+.acc-title.glint-play{
+  background-image:linear-gradient(100deg,var(--text-dark) 30%,var(--text-dark) 42%,#fff 49%,#fff 51%,var(--text-dark) 58%,var(--text-dark) 100%);
+  background-size:280% 100%;
+  background-position:220% 0;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:glintSweep 1.15s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+@keyframes glintSweep{to{background-position:-60% 0;}}
+.acc-title .spark{position:absolute;top:8%;font-size:0.85em;color:#fff;text-shadow:0 0 6px var(--accent-light),0 0 12px rgba(255,255,255,0.8);opacity:0;pointer-events:none;}
+.acc-title .spark.s1{left:14%;}
+.acc-title .spark.s2{left:58%;}
+.acc-title.glint-play .spark{animation:sparkPop 1.15s ease-out forwards;}
+.acc-title.glint-play .spark.s1{animation-delay:0.28s;}
+.acc-title.glint-play .spark.s2{animation-delay:0.55s;}
+@keyframes sparkPop{0%{opacity:0;transform:scale(0.3) rotate(0deg);}18%{opacity:1;transform:scale(1.15) rotate(20deg);}40%{opacity:0;transform:scale(0.6) rotate(30deg);}100%{opacity:0;}}
 .acc-meta{display:flex;flex-direction:column;gap:0.35rem;text-align:right;}
 .acc-tag{font-size:0.62rem;letter-spacing:0.13em;text-transform:uppercase;font-weight:500;color:var(--text-muted-light);}
 .acc-chev{color:var(--accent);text-align:right;display:flex;justify-content:flex-end;transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);}
@@ -247,9 +255,11 @@ animation:accLogoPing 2.6s ease-out infinite;
 .acc-cta:hover::before{left:0;}
 .acc-cta:hover{border-color:var(--accent);}
 .acc-cta span,.acc-cta svg{position:relative;z-index:1;}
-.acc-cta svg{animation:ctaArrowNudge 1.7s ease-in-out infinite;}
-@keyframes ctaArrowNudge{0%,100%{transform:translateX(0);}50%{transform:translateX(5px);}}
-.acc-cta:hover svg{animation:none;transform:translateX(5px);}
+.acc-cta:hover svg{transform:translateX(5px);}
+.acc-cta svg{transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);}
+.acc-cta::after{content:'';position:absolute;top:0;left:-40%;width:22%;height:100%;background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,0.28) 50%,transparent 100%);transform:skewX(-18deg);z-index:2;opacity:0;pointer-events:none;}
+.acc-cta.glint-play::after{animation:ctaSheen 0.85s ease-out forwards;}
+@keyframes ctaSheen{0%{left:-40%;opacity:0.85;}100%{left:130%;opacity:0;}}
 .acc-soon{font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;color:var(--text-muted-light);}
 
 /* ABOUT — WARM GREY */
@@ -447,7 +457,7 @@ nav{padding:1.2rem 1.5rem;}
       <div class="acc-head" onclick="toggleAcc(this)">
         <div class="acc-logo"><img src="images/mlp_logo_sliver.png" alt="My Landscaping Project logo"></div>
         <span class="acc-num">01</span>
-        <h2 class="acc-title">My Landscaping Project</h2>
+        <h2 class="acc-title" data-glint>My Landscaping Project<span class="spark s1">&#10022;</span><span class="spark s2">&#10022;</span></h2>
         <div class="acc-meta">
           <span class="acc-tag">Design + Build Firm</span>
         </div>
@@ -460,7 +470,7 @@ nav{padding:1.2rem 1.5rem;}
             <div class="acc-img"><img src="images/mlp_logo.jpg" alt="My Landscaping Project brandmark"></div>
             <div class="acc-img"><img src="images/truck_wrap.jpg" alt="My Landscaping Project vehicle wrap design"></div>
           </div>
-          <div class="acc-cta-row"><a href="mlp.html" class="acc-cta"><span>Explore the full project</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a></div>
+          <div class="acc-cta-row"><a href="mlp.html" class="acc-cta" data-glint><span>Explore the full project</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a></div>
         </div>
       </div>
     </div>
@@ -469,7 +479,7 @@ nav{padding:1.2rem 1.5rem;}
       <div class="acc-head" onclick="toggleAcc(this)">
         <div class="acc-logo"><img src="images/vc_logo.png" alt="Vid Converts logo"></div>
         <span class="acc-num">02</span>
-        <h2 class="acc-title">Vid Converts</h2>
+        <h2 class="acc-title" data-glint>Vid Converts<span class="spark s1">&#10022;</span><span class="spark s2">&#10022;</span></h2>
         <div class="acc-meta">
           <span class="acc-tag">SaaS Platform</span>
         </div>
@@ -491,7 +501,7 @@ nav{padding:1.2rem 1.5rem;}
       <div class="acc-head" onclick="toggleAcc(this)">
         <div class="acc-logo"><img src="images/kalma34_logo.png" alt="KALMA 34 logo"></div>
         <span class="acc-num">03</span>
-        <h2 class="acc-title">KALMA · 34</h2>
+        <h2 class="acc-title" data-glint>KALMA · 34<span class="spark s1">&#10022;</span><span class="spark s2">&#10022;</span></h2>
         <div class="acc-meta">
           <span class="acc-tag">Health App</span>
         </div>
@@ -586,11 +596,23 @@ nav{padding:1.2rem 1.5rem;}
 <script>
 function toggleMenu(){document.body.classList.toggle('menu-open');}
 function closeMenu(){document.body.classList.remove('menu-open');}
-function toggleAcc(head){head.parentElement.classList.toggle('open');}
+function toggleAcc(head){
+  var item=head.parentElement, wasOpen=item.classList.contains('open');
+  item.classList.toggle('open');
+  if(!wasOpen){
+    var cta=item.querySelector('.acc-cta[data-glint]');
+    if(cta){ cta.classList.add('glint-play'); cta.removeAttribute('data-glint'); }
+  }
+}
 const io=new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}
 }),{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const glintIo=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add('glint-play'); glintIo.unobserve(e.target); }
+}),{threshold:0.5});
+document.querySelectorAll('.acc-title[data-glint]').forEach(el=>glintIo.observe(el));
 
 (function(){
   var lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg'), lbClose=document.getElementById('lbClose');
