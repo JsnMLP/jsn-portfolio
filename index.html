@@ -217,6 +217,8 @@ display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shri
 .acc-tag{font-size:0.62rem;letter-spacing:0.13em;text-transform:uppercase;font-weight:500;color:var(--text-muted-light);}
 .acc-chev{color:var(--accent);text-align:right;display:flex;justify-content:flex-end;transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);}
 .acc-item.open .acc-chev{transform:rotate(180deg);}
+@keyframes accChevNudge{0%,100%{opacity:0.5;transform:translateY(0);}50%{opacity:1;transform:translateY(4px);}}
+.acc-item:not(.open) .acc-chev{animation:accChevNudge 2.4s ease-in-out infinite;}
 .acc-panel{max-height:0;overflow:hidden;transition:max-height 0.6s cubic-bezier(0.16,1,0.3,1);}
 .acc-item.open .acc-panel{max-height:1200px;}
 .acc-panel-inner{padding:0.8rem 0.4rem 3rem 3.5rem;}
@@ -233,8 +235,13 @@ display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shri
 .acc-img.placeholder{display:flex;align-items:center;justify-content:center;}
 .acc-img.placeholder span{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;color:var(--text-muted-light);}
 .acc-cta-row{margin-top:1.8rem;}
-.acc-cta{font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:0.4rem;transition:letter-spacing 0.3s;}
-.acc-cta:hover{letter-spacing:0.22em;}
+.acc-cta{display:inline-flex;align-items:center;gap:0.7rem;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:600;color:var(--warm-white);text-decoration:none;padding:0.9rem 1.7rem;background:var(--charcoal);border:1px solid var(--charcoal);position:relative;overflow:hidden;transition:border-color 0.3s;}
+.acc-cta::before{content:'';position:absolute;top:0;left:-100%;right:0;bottom:0;background:var(--accent);transition:left 0.4s cubic-bezier(0.16,1,0.3,1);}
+.acc-cta:hover::before{left:0;}
+.acc-cta:hover{border-color:var(--accent);}
+.acc-cta span,.acc-cta svg{position:relative;z-index:1;}
+.acc-cta svg{transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);}
+.acc-cta:hover svg{transform:translateX(5px);}
 .acc-soon{font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;color:var(--text-muted-light);}
 
 /* ABOUT — WARM GREY */
@@ -445,7 +452,7 @@ nav{padding:1.2rem 1.5rem;}
             <div class="acc-img"><img src="images/mlp_logo.jpg" alt="My Landscaping Project brandmark"></div>
             <div class="acc-img"><img src="images/truck_wrap.jpg" alt="My Landscaping Project vehicle wrap design"></div>
           </div>
-          <div class="acc-cta-row"><a href="mlp.html" class="acc-cta">Explore the full project →</a></div>
+          <div class="acc-cta-row"><a href="mlp.html" class="acc-cta"><span>Explore the full project</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a></div>
         </div>
       </div>
     </div>
