@@ -234,6 +234,24 @@ body.menu-open .menu-inner{transform:none;}
 .meta-mini-n{font-family:var(--font-quote);font-size:1.4rem;font-weight:500;color:var(--accent);line-height:1;}
 .meta-mini-l{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;color:var(--text-muted-light);margin-top:0.15rem;}
 
+/* GRAPHIC DESIGN — staged reveal, spotlight, 3D carousel */
+.gd-outer{margin-top:0.4rem;}
+.gd-stage-wrap{position:relative;width:100%;max-width:480px;margin:0 auto;aspect-ratio:1/1;}
+.gd-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:8px;}
+.gd-tile{position:relative;overflow:hidden;border-radius:6px;opacity:0;transform:translateY(16px);transition:opacity 0.55s ease,transform 0.55s ease;background:var(--warm-mid);}
+.gd-tile.in{opacity:1;transform:translateY(0);}
+.gd-tile img{width:100%;height:100%;object-fit:cover;display:block;}
+.gd-scrim{position:absolute;inset:0;background:#0A0D0F;opacity:0;transition:opacity 0.9s ease;pointer-events:none;border-radius:8px;}
+.gd-scrim.on{opacity:0.93;}
+.gd-carousel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:0.4rem;opacity:0;transform:scale(0.9);transition:opacity 0.7s ease,transform 0.7s ease;pointer-events:none;perspective:1100px;}
+.gd-carousel.on{opacity:1;transform:scale(1);pointer-events:auto;}
+.gd-car-stage{position:relative;width:74%;height:82%;}
+.gd-car-item{position:absolute;top:50%;left:50%;border-radius:8px;overflow:hidden;cursor:pointer;box-shadow:0 20px 44px -16px rgba(0,0,0,0.6);transition:transform 0.45s cubic-bezier(0.65,0,0.35,1),filter 0.45s ease;}
+.gd-car-item img{width:100%;height:100%;object-fit:cover;display:block;}
+.gd-nav{background:none;border:none;color:var(--accent-light);font-size:2.1rem;cursor:pointer;z-index:3;line-height:1;padding:0.3rem 0.5rem;transition:transform 0.2s;}
+.gd-nav:hover{transform:scale(1.12);}
+.gd-cap{text-align:center;font-size:0.8rem;color:var(--text-muted-light);margin-top:1rem;font-style:italic;min-height:1.2em;}
+
 /* CLIENT JOURNEY */
 .cj-lead{max-width:760px;margin-bottom:2.4rem;}
 .cj-lead p{font-size:1rem;line-height:1.85;color:var(--text-muted-light);margin-bottom:1.2rem;}
@@ -594,21 +612,39 @@ nav{padding:1.2rem 1.5rem;}
             <div><p class="meta-mini-n">$40</p><p class="meta-mini-l">Spend</p></div>
           </div>
         </div>
-        <div class="meta-mini placeholder"><span>More campaigns coming</span></div>
       </div>
 
     </div></div>
   </div>
 
   <!-- 05 GRAPHIC DESIGN -->
-  <div class="chapter reveal">
+  <div class="chapter reveal" id="gdChapter">
     <div class="ch-head" onclick="toggleChapter(this)">
       <span class="ch-num">05</span>
       <div class="ch-titles"><span class="ch-title">Graphic Design</span><span class="ch-teaser">The full range of visual output — all kinds.</span></div>
       <span class="ch-tag">Images</span>
       <span class="ch-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
     </div>
-    <div class="ch-panel"><div class="ch-inner"><div class="ch-soon"><span class="ch-soon-dot"></span><p class="ch-soon-t"><b>In development.</b> The full spread of graphic work across the brand. Images coming.</p></div></div></div>
+    <div class="ch-panel"><div class="ch-inner">
+
+      <div class="ig-lead">
+        <p>Twenty-five years of graphic design work, in whatever medium the job actually called for — social ads, print collateral, iconography, trust badges, sales documents, process diagrams. <strong>Nine pieces here, nine different disciplines.</strong></p>
+      </div>
+
+      <div class="gd-outer">
+        <div id="gdStageWrap" class="gd-stage-wrap">
+          <div id="gdGrid" class="gd-grid"></div>
+          <div id="gdScrim" class="gd-scrim"></div>
+          <div id="gdCarousel" class="gd-carousel">
+            <button id="gdPrev" class="gd-nav l" aria-label="Previous piece">&lsaquo;</button>
+            <div id="gdCarStage" class="gd-car-stage"></div>
+            <button id="gdNext" class="gd-nav r" aria-label="Next piece">&rsaquo;</button>
+          </div>
+        </div>
+        <p id="gdCap" class="gd-cap"></p>
+      </div>
+
+    </div></div>
   </div>
 
   <!-- 06 EDITORIAL -->
@@ -666,6 +702,7 @@ function toggleChapter(head){
   var item=head.parentElement, open=item.classList.contains('open');
   document.querySelectorAll('.chapter.open').forEach(function(c){if(c!==item)c.classList.remove('open');});
   item.classList.toggle('open', !open);
+  if(!open && item.id==='gdChapter' && window.startGdShowcase) window.startGdShowcase();
 }
 
 /* shared YouTube IFrame API loader */
@@ -797,6 +834,93 @@ var Lightbox=(function(){
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
 
   return { openVideo:openVideo, openImage:openImage, openPost:openPost, close:close };
+})();
+
+/* Graphic Design — staged grid reveal, spotlight, 3D coverflow carousel */
+window.startGdShowcase=(function(){
+  var GD=[
+    {sq:'images/gd1_flowchart_sq.jpg',full:'images/gd1_flowchart_full.jpg',alt:'Client journey flowchart',cap:'Process flowchart — the client journey, mapped.'},
+    {sq:'images/gd2_carpentry_icon_sq.jpg',full:'images/gd2_carpentry_icon_full.jpg',alt:'Carpentry service icon',cap:'Iconography — service pictograms.'},
+    {sq:'images/gd3_warranty_medallion_sq.jpg',full:'images/gd3_warranty_medallion_full.jpg',alt:'2 year warranty medallion badge',cap:'Trust badge design.'},
+    {sq:'images/gd4_shed_before_after_sq.jpg',full:'images/gd4_shed_before_after_full.jpg',alt:'Shed before and after',cap:'Before and after storytelling.'},
+    {sq:'images/gd5_driveway_ad_sq.jpg',full:'images/gd5_driveway_ad_full.jpg',alt:'Driveway sealing ad',cap:'Direct-response ad copy and design.'},
+    {sq:'images/gd6_deck_composite_sq.jpg',full:'images/gd6_deck_composite_full.jpg',alt:'Deck building service composite ad',cap:'Multi-panel service composite.'},
+    {sq:'images/gd7_porch_dreams_sq.jpg',full:'images/gd7_porch_dreams_full.jpg',alt:'Porch dreams feature callouts',cap:'Feature-callout photography.'},
+    {sq:'images/gd8_door_hanger_sq.jpg',full:'images/gd8_door_hanger_full.jpg',alt:'Gardens door hanger print design',cap:'Print — door hanger design.'},
+    {sq:'images/gd9_sales_sheet_sq.jpg',full:'images/gd9_sales_sheet_full.jpg',alt:'Project sales sheet',cap:'Sales collateral design.'},
+    {sq:'images/gd10_complete_plan_sq.jpg',full:'images/gd10_complete_plan_full.jpg',alt:'Complete plan pricing card',cap:'Pricing card design.'},
+    {sq:'images/gd11_ashwood_stain_sq.jpg',full:'images/gd11_ashwood_stain_full.jpg',alt:'Ashwood stain build showcase slide',cap:'Build showcase slide.'}
+  ];
+  var started=false;
+  return function(){
+    if(started) return; started=true;
+    var grid=document.getElementById('gdGrid'); if(!grid) return;
+    var scrim=document.getElementById('gdScrim'), car=document.getElementById('gdCarousel'),
+        stage=document.getElementById('gdCarStage'), cap=document.getElementById('gdCap'),
+        prevBtn=document.getElementById('gdPrev'), nextBtn=document.getElementById('gdNext');
+
+    GD.slice(0,9).forEach(function(item){
+      var t=document.createElement('div'); t.className='gd-tile';
+      var img=document.createElement('img'); img.src=item.sq; img.alt=item.alt;
+      t.appendChild(img); grid.appendChild(t);
+    });
+    var tiles=grid.children;
+
+    function reveal(){
+      [].slice.call(tiles).forEach(function(t,idx){
+        var row=Math.floor(idx/3), delay=row*380+(idx%3)*140;
+        setTimeout(function(){ t.classList.add('in'); }, delay);
+      });
+      setTimeout(spotlight, 1500);
+    }
+
+    var idx=0;
+    function spotlight(){
+      scrim.classList.add('on');
+      car.classList.add('on');
+      buildCarousel();
+    }
+
+    function swoosh(){
+      try{
+        var ctx=new (window.AudioContext||window.webkitAudioContext)();
+        var o=ctx.createOscillator(), g=ctx.createGain();
+        o.type='sine'; o.frequency.setValueAtTime(200,ctx.currentTime);
+        o.frequency.exponentialRampToValueAtTime(950,ctx.currentTime+0.18);
+        g.gain.setValueAtTime(0.14,ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.22);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(); o.stop(ctx.currentTime+0.22);
+      }catch(e){}
+    }
+
+    function buildCarousel(){
+      stage.innerHTML='';
+      var r=stage.getBoundingClientRect(), sw=r.width;
+      var cw=sw*0.5, ch=cw*1.14, sdw=sw*0.34, sdh=sdw*1.14, off=sw*0.36;
+      [-1,0,1].forEach(function(o){
+        var i=(idx+o+GD.length)%GD.length, item=GD[i], isC=o===0;
+        var d=document.createElement('div');
+        d.className='gd-car-item';
+        var w=isC?cw:sdw, h=isC?ch:sdh;
+        d.style.width=w+'px'; d.style.height=h+'px';
+        d.style.transform='translate(-50%,-50%) translateX('+(o*off)+'px) rotateY('+(o*-30)+'deg) scale('+(isC?1:0.86)+')';
+        d.style.filter='brightness('+(isC?1:0.42)+')';
+        d.style.zIndex=isC?2:1;
+        var img=document.createElement('img'); img.src=item.sq; img.alt=item.alt;
+        d.appendChild(img);
+        if(isC){ d.onclick=function(){ Lightbox.openImage(item.full, item.alt); }; }
+        stage.appendChild(d);
+      });
+      cap.textContent=GD[idx].cap;
+    }
+
+    prevBtn.onclick=function(){ idx=(idx-1+GD.length)%GD.length; swoosh(); buildCarousel(); };
+    nextBtn.onclick=function(){ idx=(idx+1)%GD.length; swoosh(); buildCarousel(); };
+    window.addEventListener('resize', function(){ if(car.classList.contains('on')) buildCarousel(); });
+
+    reveal();
+  };
 })();
 
 /* Instagram — mixed-media reel shelf: click opens a large lightbox + variable-width snap nav */
