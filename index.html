@@ -213,12 +213,14 @@ display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shri
 .acc-num{font-size:0.85rem;font-weight:500;color:var(--text-muted-light);}
 .acc-title{font-family:var(--font-sans);font-size:2rem;font-weight:300;color:var(--text-dark);letter-spacing:-0.015em;transition:color 0.3s;position:relative;display:inline-block;}
 .acc-head:hover .acc-title{color:var(--accent);}
-.acc-title .ember-ov{position:absolute;top:0;left:0;white-space:nowrap;color:var(--accent-light);text-shadow:0 0 10px rgba(196,71,29,0.55);clip-path:inset(0 100% 0 0);pointer-events:none;}
-.acc-title .ember-dot{position:absolute;top:38%;left:0;width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 8px 3px rgba(255,255,255,0.9),0 0 16px 6px rgba(196,71,29,0.65);opacity:0;pointer-events:none;}
-.acc-title.glint-play .ember-ov{animation:emberReveal 1.3s cubic-bezier(0.65,0,0.35,1) forwards;}
-.acc-title.glint-play .ember-dot{animation:emberDot 1.3s cubic-bezier(0.65,0,0.35,1) forwards;}
-@keyframes emberReveal{to{clip-path:inset(0 0 0 0);}}
-@keyframes emberDot{0%{left:0;opacity:0;}8%{opacity:1;}92%{opacity:1;}100%{left:100%;opacity:0;}}
+.acc-title.glint-play{
+  background-image:linear-gradient(90deg,var(--accent-light) 50%,var(--text-dark) 50%);
+  background-size:200% 100%;
+  background-position:100% 0;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:emberSweep 1.3s cubic-bezier(0.65,0,0.35,1) forwards;
+}
+@keyframes emberSweep{to{background-position:0% 0;}}
 .acc-meta{display:flex;flex-direction:column;gap:0.35rem;text-align:right;}
 .acc-tag{font-size:0.62rem;letter-spacing:0.13em;text-transform:uppercase;font-weight:500;color:var(--text-muted-light);}
 .acc-chev{color:var(--accent);text-align:right;display:flex;justify-content:flex-end;transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);}
@@ -448,7 +450,7 @@ nav{padding:1.2rem 1.5rem;}
       <div class="acc-head" onclick="toggleAcc(this)">
         <div class="acc-logo"><img src="images/mlp_logo_sliver.png" alt="My Landscaping Project logo"></div>
         <span class="acc-num">01</span>
-        <h2 class="acc-title" data-glint>My Landscaping Project<span class="ember-ov" aria-hidden="true">My Landscaping Project</span><span class="ember-dot" aria-hidden="true"></span></h2>
+        <h2 class="acc-title" data-glint>My Landscaping Project</h2>
         <div class="acc-meta">
           <span class="acc-tag">Design + Build Firm</span>
         </div>
@@ -470,7 +472,7 @@ nav{padding:1.2rem 1.5rem;}
       <div class="acc-head" onclick="toggleAcc(this)">
         <div class="acc-logo"><img src="images/vc_logo.png" alt="Vid Converts logo"></div>
         <span class="acc-num">02</span>
-        <h2 class="acc-title" data-glint>Vid Converts<span class="ember-ov" aria-hidden="true">Vid Converts</span><span class="ember-dot" aria-hidden="true"></span></h2>
+        <h2 class="acc-title" data-glint>Vid Converts</h2>
         <div class="acc-meta">
           <span class="acc-tag">SaaS Platform</span>
         </div>
@@ -492,7 +494,7 @@ nav{padding:1.2rem 1.5rem;}
       <div class="acc-head" onclick="toggleAcc(this)">
         <div class="acc-logo"><img src="images/kalma34_logo.png" alt="KALMA 34 logo"></div>
         <span class="acc-num">03</span>
-        <h2 class="acc-title" data-glint>KALMA · 34<span class="ember-ov" aria-hidden="true">KALMA · 34</span><span class="ember-dot" aria-hidden="true"></span></h2>
+        <h2 class="acc-title" data-glint>KALMA · 34</h2>
         <div class="acc-meta">
           <span class="acc-tag">Health App</span>
         </div>
