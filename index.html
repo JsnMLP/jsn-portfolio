@@ -83,7 +83,9 @@ pointer-events:none;
 .hero-portrait{position:relative;z-index:2;opacity:0;animation:fadeIn 1.3s ease forwards 0.55s;}
 .hero-portrait img{display:block;width:100%;max-width:500px;height:auto;margin:0 auto;border-radius:2px;}
 .hero-portrait::after{content:'';position:absolute;top:0;left:-60%;width:35%;height:100%;background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,0.4) 50%,transparent 100%);transform:skewX(-18deg);pointer-events:none;opacity:0;z-index:3;}
-.hero-portrait.glint-play::after{animation:ctaSheen 1.15s ease-out 2 forwards;}
+.hero-portrait.glint-play::after{animation:ctaSheen 1.15s ease-out 1 forwards;}
+.hero-portrait::before{content:'';position:absolute;top:86%;left:-60%;width:35%;height:12%;background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,0.5) 50%,transparent 100%);transform:skewX(-18deg);pointer-events:none;opacity:0;z-index:4;}
+.hero-portrait.glint-play::before{animation:ctaSheen 0.85s ease-out 1 forwards;animation-delay:1.15s;}
 .hero-eyebrow{
 font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;
 color:var(--accent);margin-bottom:2.5rem;
