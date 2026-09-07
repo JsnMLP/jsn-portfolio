@@ -197,7 +197,7 @@ body.menu-open .menu-inner{transform:none;}
 .ig-lb-post-close:hover{color:var(--text-dark);}
 .ig-lb-post-media{position:relative;aspect-ratio:1/1;background:#000;overflow:hidden;flex:0 0 auto;}
 .ig-lb-post-track{display:flex;height:100%;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);}
-.ig-lb-post-track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;}
+.ig-lb-post-track img{flex:0 0 100%;width:100%;height:100%;object-fit:contain;background:#000;}
 .ig-lb-post-nav{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.9);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--charcoal);box-shadow:0 4px 12px rgba(0,0,0,0.2);}
 .ig-lb-post-nav.l{left:0.6rem;}
 .ig-lb-post-nav.r{right:0.6rem;}
@@ -550,7 +550,19 @@ nav{padding:1.2rem 1.5rem;}
             </div>
           </div>
 
-          <!-- Reel 4: entrance gate + fence — real Instagram carousel post -->
+          <!-- Reel 4: materials + craftsmanship — before/after, real Instagram carousel post -->
+          <div class="ig-reel post" data-post="materials">
+            <img class="ig-reel-bg" src="images/mlp_ig_materials_cover.jpg" alt="Entrance gate and fence — materials and craftsmanship, before and after">
+            <div class="ig-reel-shade"></div>
+            <span class="ig-reel-count">1 / 2</span>
+            <div class="ig-reel-poster">
+              <span class="ig-reel-badge">Instagram Post</span>
+              <span></span>
+              <span class="ig-reel-cap">Materials &amp; Craftsmanship</span>
+            </div>
+          </div>
+
+          <!-- Reel 5: entrance gate + fence — real Instagram carousel post -->
           <div class="ig-reel post" data-post="gate">
             <img class="ig-reel-bg" src="images/mlp_ig_gate_1.jpg" alt="Entrance gate and fence — Instagram post, My Landscaping Project">
             <div class="ig-reel-shade"></div>
@@ -562,7 +574,7 @@ nav{padding:1.2rem 1.5rem;}
             </div>
           </div>
 
-          <!-- Reel 5: 3D landscape design render -->
+          <!-- Reel 6: 3D landscape design render -->
           <div class="ig-reel photo">
             <img class="ig-reel-bg" src="images/mlp_ig_render.jpg" alt="3D backyard landscape design render — My Landscaping Project">
             <div class="ig-reel-shade"></div>
@@ -1080,6 +1092,11 @@ window.startGdShowcase=(function(){
       alt:'Driveway and paver sealing carousel post',
       images:['images/mlp_ig_sealing_1.jpg','images/mlp_ig_sealing_2.jpg','images/mlp_ig_sealing_3.jpg','images/mlp_ig_sealing_4.jpg','images/mlp_ig_sealing_5.jpg','images/mlp_ig_sealing_6.jpg','images/mlp_ig_sealing_7.jpg','images/mlp_ig_sealing_8.jpg','images/mlp_ig_sealing_9.jpg'],
       caption:"Your pavers and concrete just went through another Toronto winter \u2014 and the damage might not be visible yet. \ud83e\uddca\n\nFreeze-thaw cycles, road salt, and spring rain are quietly working against your surfaces from the inside out. Most homeowners don't find out until it's already expensive.\n\nSealing protects your investment, restores that rich finished look, and makes maintenance dramatically easier.\n\nWe also seal natural stone and limestone \u2014 one of the most overlooked services for GTA homeowners.\n\nWe use Techniseal \u2014 North America's gold standard \u2014 applied in two full coats with complete surface prep. No shortcuts.\n\nServing Toronto & the GTA.\n\ud83d\udc49 Free estimate in bio."
+    },
+    materials:{
+      alt:'Entrance gate and fence — materials and craftsmanship, before and after',
+      images:['images/mlp_ig_materials_1.jpg','images/mlp_ig_materials_2.jpg'],
+      caption:"While we push boundaries with the materials our client's are requesting we use, we are discovering the art of craftsmanship and design.\n\nOur design philosophy is this:\nWe will not push design on you for the sake of stroking our ego. We will work with your vision and your physical needs. What makes sense for you while you walk from place A to place B, while you get to admire the beauty of your vision.\n\nWe'll build it to last.\nWe'll make sure it is solid.\nWhile creating a masterpiece.\n\n@timbertech PVC landing/siding\n@alumarail aluminum panels and gate\n@tivadek tigerwood accent\n@stonearch.ca limestone steps\n@rf_transparent glass railings\n@oakslandscapeproducts modan wallstone\n@palram.americas awning"
     }
   };
 
