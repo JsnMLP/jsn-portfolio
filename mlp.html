@@ -255,17 +255,16 @@ body.menu-open .menu-inner{transform:none;}
 
 /* EDITORIAL — press clippings */
 .ed-row{display:flex;gap:1.7rem;flex-wrap:wrap;margin-top:0.4rem;}
-.ed-card{flex:1 1 220px;max-width:280px;cursor:pointer;transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);}
-.ed-card:not(.placeholder):hover{transform:rotate(-1.4deg) translateY(-4px);}
-.ed-card-img{aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#fff;border:1px solid var(--border-light);box-shadow:0 10px 26px -14px rgba(28,35,41,0.38);margin-bottom:0.9rem;transform:rotate(0.6deg);}
-.ed-card:nth-child(2) .ed-card-img{transform:rotate(-0.8deg);}
-.ed-card:nth-child(3) .ed-card-img{transform:rotate(0.9deg);}
+.ed-card{flex:1 1 220px;max-width:280px;cursor:pointer;transition:transform 0.25s ease,box-shadow 0.25s ease;}
+.ed-card:not(.placeholder):hover{transform:translateY(-5px);}
+.ed-card-img{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#fff;border:1px solid var(--border-light);box-shadow:0 10px 26px -14px rgba(28,35,41,0.38);margin-bottom:0.9rem;}
+.ed-badge{position:absolute;top:0;right:0;background:var(--accent);color:#fff;font-size:0.6rem;font-weight:800;letter-spacing:0.1em;padding:0.35rem 0.7rem 0.35rem 0.9rem;border-bottom-left-radius:8px;z-index:2;}
 .ed-card-img img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
 .ed-card-img.placeholder-img{display:flex;align-items:center;justify-content:center;background:var(--warm-mid);border:1px dashed var(--border-light);}
 .ed-card-img.placeholder-img span{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#B9AE9F;}
-.ed-mag{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-bottom:0.45rem;}
-.ed-headline{font-family:var(--font-quote);font-size:1.05rem;font-style:italic;color:var(--text-dark);line-height:1.35;margin-bottom:0.5rem;}
-.ed-byline{font-size:0.7rem;color:var(--text-muted-light);font-weight:600;}
+.ed-mag{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:800;color:var(--accent);margin-bottom:0.5rem;}
+.ed-headline{font-family:var(--font-quote);font-size:1.15rem;font-style:italic;font-weight:600;color:var(--text-dark);line-height:1.3;margin-bottom:0.5rem;}
+.ed-byline{font-size:0.72rem;color:var(--text-muted-light);font-weight:700;}
 .ed-card.placeholder{cursor:default;}
 .ed-card.placeholder:hover{transform:none;}
 
@@ -682,7 +681,7 @@ nav{padding:1.2rem 1.5rem;}
       <div class="ed-row">
 
         <div class="ed-card" data-full="images/ed1_sketchy_full.jpg" data-alt="3 Signs of a Sketchy Contractor — Look Out! Expert Contributor article by Jason Tello">
-          <div class="ed-card-img"><img src="images/ed1_sketchy_thumb.jpg" alt="3 Signs of a Sketchy Contractor — Look Out! article thumbnail"></div>
+          <div class="ed-card-img"><span class="ed-badge">PUBLISHED</span><img src="images/ed1_sketchy_thumb.jpg" alt="3 Signs of a Sketchy Contractor — Look Out! article thumbnail"></div>
           <p class="ed-mag">Neighbours of Lawrence Park South</p>
           <p class="ed-headline">&ldquo;3 Signs of a Sketchy Contractor — Look Out!&rdquo;</p>
           <p class="ed-byline">Expert Contributor</p>
