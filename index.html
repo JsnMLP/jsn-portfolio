@@ -82,6 +82,8 @@ pointer-events:none;
 .hero-text{position:relative;z-index:2;opacity:0;transform:translateY(20px);animation:fadeUp 1s ease forwards 0.3s;}
 .hero-portrait{position:relative;z-index:2;opacity:0;animation:fadeIn 1.3s ease forwards 0.55s;}
 .hero-portrait img{display:block;width:100%;max-width:500px;height:auto;margin:0 auto;border-radius:2px;}
+.hero-portrait::after{content:'';position:absolute;top:0;left:-60%;width:35%;height:100%;background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,0.4) 50%,transparent 100%);transform:skewX(-18deg);pointer-events:none;opacity:0;z-index:3;}
+.hero-portrait.glint-play::after{animation:ctaSheen 1.15s ease-out 2 forwards;}
 .hero-eyebrow{
 font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;
 color:var(--accent);margin-bottom:2.5rem;
@@ -251,7 +253,7 @@ display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shri
 .acc-cta:hover svg{transform:translateX(5px);}
 .acc-cta svg{transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);}
 .acc-cta::after{content:'';position:absolute;top:0;left:-40%;width:22%;height:100%;background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,0.28) 50%,transparent 100%);transform:skewX(-18deg);z-index:2;opacity:0;pointer-events:none;}
-.acc-cta.glint-play::after{animation:ctaSheen 0.85s ease-out forwards;}
+.acc-cta.glint-play::after{animation:ctaSheen 0.85s ease-out 2 forwards;}
 @keyframes ctaSheen{0%{left:-40%;opacity:0.85;}100%{left:130%;opacity:0;}}
 .acc-soon{font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;color:var(--text-muted-light);}
 
@@ -607,6 +609,9 @@ const glintIo=new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){ e.target.classList.add('glint-play'); glintIo.unobserve(e.target); }
 }),{threshold:0.5});
 document.querySelectorAll('.acc-title[data-glint]').forEach(el=>glintIo.observe(el));
+
+var heroPortrait=document.querySelector('.hero-portrait');
+if(heroPortrait) setTimeout(function(){ heroPortrait.classList.add('glint-play'); }, 1900);
 
 (function(){
   var lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg'), lbClose=document.getElementById('lbClose');

@@ -250,6 +250,7 @@ body.menu-open .menu-inner{transform:none;}
 .gd-car-item img{width:100%;height:100%;object-fit:cover;display:block;}
 .gd-nav{background:none;border:none;color:var(--accent-light);font-size:2.1rem;cursor:pointer;z-index:3;line-height:1;padding:0.3rem 0.5rem;transition:transform 0.2s;}
 .gd-nav:hover{transform:scale(1.12);}
+.gd-zoom-hint{position:absolute;top:0.7rem;left:50%;transform:translateX(-50%);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;color:#fff;z-index:3;pointer-events:none;}
 .gd-cap{text-align:center;font-size:0.8rem;color:var(--text-muted-light);margin-top:1rem;font-style:italic;min-height:1.2em;}
 
 /* CLIENT JOURNEY */
@@ -636,6 +637,7 @@ nav{padding:1.2rem 1.5rem;}
           <div id="gdGrid" class="gd-grid"></div>
           <div id="gdScrim" class="gd-scrim"></div>
           <div id="gdCarousel" class="gd-carousel">
+            <span class="gd-zoom-hint">Click to zoom</span>
             <button id="gdPrev" class="gd-nav l" aria-label="Previous piece">&lsaquo;</button>
             <div id="gdCarStage" class="gd-car-stage"></div>
             <button id="gdNext" class="gd-nav r" aria-label="Next piece">&rsaquo;</button>
@@ -702,7 +704,16 @@ function toggleChapter(head){
   var item=head.parentElement, open=item.classList.contains('open');
   document.querySelectorAll('.chapter.open').forEach(function(c){if(c!==item)c.classList.remove('open');});
   item.classList.toggle('open', !open);
-  if(!open && item.id==='gdChapter' && window.startGdShowcase) window.startGdShowcase();
+  if(!open && item.id==='gdChapter') armGdShowcase();
+}
+var __gdArmed=false;
+function armGdShowcase(){
+  if(__gdArmed) return; __gdArmed=true;
+  var target=document.getElementById('gdStageWrap'); if(!target) return;
+  var obs=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ if(window.startGdShowcase) window.startGdShowcase(); obs.unobserve(e.target); } });
+  },{threshold:0, rootMargin:'-50% 0px -50% 0px'});
+  obs.observe(target);
 }
 
 /* shared YouTube IFrame API loader */
@@ -844,9 +855,9 @@ window.startGdShowcase=(function(){
     {sq:'images/gd3_warranty_medallion_sq.jpg',full:'images/gd3_warranty_medallion_full.jpg',alt:'2 year warranty medallion badge',cap:'Trust badge design.'},
     {sq:'images/gd4_shed_before_after_sq.jpg',full:'images/gd4_shed_before_after_full.jpg',alt:'Shed before and after',cap:'Before and after storytelling.'},
     {sq:'images/gd5_driveway_ad_sq.jpg',full:'images/gd5_driveway_ad_full.jpg',alt:'Driveway sealing ad',cap:'Direct-response ad copy and design.'},
-    {sq:'images/gd6_deck_composite_sq.jpg',full:'images/gd6_deck_composite_full.jpg',alt:'Deck building service composite ad',cap:'Multi-panel service composite.'},
+    {sq:'images/gd6_deck_composite_sq.jpg',full:'images/gd6_deck_composite_full.jpg',alt:'Deck building door hanger design',cap:'Print — door hanger design.'},
     {sq:'images/gd7_porch_dreams_sq.jpg',full:'images/gd7_porch_dreams_full.jpg',alt:'Porch dreams feature callouts',cap:'Feature-callout photography.'},
-    {sq:'images/gd8_door_hanger_sq.jpg',full:'images/gd8_door_hanger_full.jpg',alt:'Gardens door hanger print design',cap:'Print — door hanger design.'},
+    {sq:'images/gd8_door_hanger_sq.jpg',full:'images/gd8_door_hanger_full.jpg',alt:'Door hanger design series — six service categories',cap:'Print — door hanger series, the full set.'},
     {sq:'images/gd9_sales_sheet_sq.jpg',full:'images/gd9_sales_sheet_full.jpg',alt:'Project sales sheet',cap:'Sales collateral design.'},
     {sq:'images/gd10_complete_plan_sq.jpg',full:'images/gd10_complete_plan_full.jpg',alt:'Complete plan pricing card',cap:'Pricing card design.'},
     {sq:'images/gd11_ashwood_stain_sq.jpg',full:'images/gd11_ashwood_stain_full.jpg',alt:'Ashwood stain build showcase slide',cap:'Build showcase slide.'}
@@ -878,46 +889,80 @@ window.startGdShowcase=(function(){
     function spotlight(){
       scrim.classList.add('on');
       car.classList.add('on');
-      buildCarousel();
+      initCarousel();
     }
 
+    var swooshBuf=new Audio('audio/swoosh.mp3'); swooshBuf.preload='auto';
     function swoosh(){
-      try{
-        var ctx=new (window.AudioContext||window.webkitAudioContext)();
-        var o=ctx.createOscillator(), g=ctx.createGain();
-        o.type='sine'; o.frequency.setValueAtTime(200,ctx.currentTime);
-        o.frequency.exponentialRampToValueAtTime(950,ctx.currentTime+0.18);
-        g.gain.setValueAtTime(0.14,ctx.currentTime);
-        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.22);
-        o.connect(g); g.connect(ctx.destination);
-        o.start(); o.stop(ctx.currentTime+0.22);
-      }catch(e){}
+      try{ var a=swooshBuf.cloneNode(); a.volume=0.55; a.play().catch(function(){}); }catch(e){}
     }
 
-    function buildCarousel(){
-      stage.innerHTML='';
+    var slots=[];
+    function dims(){
       var r=stage.getBoundingClientRect(), sw=r.width;
-      var cw=sw*0.5, ch=cw*1.14, sdw=sw*0.34, sdh=sdw*1.14, off=sw*0.36;
-      [-1,0,1].forEach(function(o){
-        var i=(idx+o+GD.length)%GD.length, item=GD[i], isC=o===0;
-        var d=document.createElement('div');
-        d.className='gd-car-item';
-        var w=isC?cw:sdw, h=isC?ch:sdh;
-        d.style.width=w+'px'; d.style.height=h+'px';
-        d.style.transform='translate(-50%,-50%) translateX('+(o*off)+'px) rotateY('+(o*-30)+'deg) scale('+(isC?1:0.86)+')';
-        d.style.filter='brightness('+(isC?1:0.42)+')';
-        d.style.zIndex=isC?2:1;
-        var img=document.createElement('img'); img.src=item.sq; img.alt=item.alt;
-        d.appendChild(img);
-        if(isC){ d.onclick=function(){ Lightbox.openImage(item.full, item.alt); }; }
-        stage.appendChild(d);
-      });
+      return {cw:sw*0.5, ch:sw*0.5*1.14, sdw:sw*0.34, sdh:sw*0.34*1.14, off:sw*0.36};
+    }
+    function place(el, offset, instant){
+      var d=dims(), absO=Math.abs(offset);
+      var scale = offset===0?1:(absO===1?0.86:0.7);
+      var bright = offset===0?1:(absO===1?0.42:0.15);
+      var op = absO<=1?1:0;
+      var rotY = offset===0?0:(offset<0?32:-32);
+      var w = offset===0?d.cw:d.sdw, h = offset===0?d.ch:d.sdh;
+      var tx = offset*d.off;
+      if(instant) el.style.transition='none';
+      el.style.width=w+'px'; el.style.height=h+'px';
+      el.style.transform='translate(-50%,-50%) translateX('+tx+'px) rotateY('+rotY+'deg) scale('+scale+')';
+      el.style.filter='brightness('+bright+')';
+      el.style.opacity=op;
+      el.style.zIndex = offset===0?3:(absO===1?2:1);
+      if(instant){ el.offsetHeight; el.style.transition=''; }
+    }
+    function setImgOnly(el,item){ var img=el.querySelector('img'); img.src=item.sq; img.alt=item.alt; }
+    function makeSlotEl(){
+      var d=document.createElement('div'); d.className='gd-car-item';
+      var img=document.createElement('img'); d.appendChild(img);
+      stage.appendChild(d); return d;
+    }
+    function bindCenterClick(){
+      var centerEl=slots[2], item=GD[idx];
+      centerEl.onclick=function(){ Lightbox.openImage(item.full, item.alt); };
+    }
+    function initCarousel(){
+      stage.innerHTML=''; slots=[];
+      for(var i=0;i<5;i++){
+        var offset=i-2, gi=(idx+offset+GD.length*2)%GD.length;
+        var el=makeSlotEl();
+        setImgOnly(el, GD[gi]);
+        place(el, offset, true);
+        slots.push(el);
+      }
+      bindCenterClick();
+      cap.textContent=GD[idx].cap;
+    }
+    function step(dir){
+      swoosh();
+      if(dir===1){
+        idx=(idx+1)%GD.length;
+        var leaving=slots[0], newGi=(idx+2)%GD.length;
+        setImgOnly(leaving, GD[newGi]);
+        place(leaving, 2, true);
+        slots=[slots[1],slots[2],slots[3],slots[4],leaving];
+      }else{
+        idx=(idx-1+GD.length)%GD.length;
+        var leaving2=slots[4], newGi2=(idx-2+GD.length*2)%GD.length;
+        setImgOnly(leaving2, GD[newGi2]);
+        place(leaving2, -2, true);
+        slots=[leaving2,slots[0],slots[1],slots[2],slots[3]];
+      }
+      slots.forEach(function(el,i){ place(el, i-2, false); });
+      bindCenterClick();
       cap.textContent=GD[idx].cap;
     }
 
-    prevBtn.onclick=function(){ idx=(idx-1+GD.length)%GD.length; swoosh(); buildCarousel(); };
-    nextBtn.onclick=function(){ idx=(idx+1)%GD.length; swoosh(); buildCarousel(); };
-    window.addEventListener('resize', function(){ if(car.classList.contains('on')) buildCarousel(); });
+    prevBtn.onclick=function(){ step(-1); };
+    nextBtn.onclick=function(){ step(1); };
+    window.addEventListener('resize', function(){ if(car.classList.contains('on')) slots.forEach(function(el,i){ place(el, i-2, true); }); });
 
     reveal();
   };
