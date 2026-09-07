@@ -767,12 +767,18 @@ function armGdShowcase(){
 var __edArmed=false;
 function armEdCards(){
   if(__edArmed) return; __edArmed=true;
-  var bars=[].slice.call(document.querySelectorAll('.ed-read-bar'));
-  if(!bars.length) return;
+  var cards=[].slice.call(document.querySelectorAll('.ed-card:not(.placeholder)'));
+  if(!cards.length) return;
   var obs=new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        var bar=e.target.querySelector('.ed-read-bar');
+        if(bar) bar.classList.add('in');
+        obs.unobserve(e.target);
+      }
+    });
   },{threshold:0.25});
-  bars.forEach(function(b){ obs.observe(b); });
+  cards.forEach(function(c){ obs.observe(c); });
 }
 
 /* shared YouTube IFrame API loader */
