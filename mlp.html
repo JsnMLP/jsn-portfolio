@@ -186,11 +186,12 @@ body.menu-open .menu-inner{transform:none;}
 .ig-lb-player{position:absolute;inset:0;width:100%;height:100%;border:0;}
 .ig-lb-img{display:none;max-width:92vw;max-height:86vh;border-radius:10px;box-shadow:0 30px 70px -20px rgba(0,0,0,0.65);object-fit:contain;}
 .ig-lightbox.mode-img .ig-lb-img{display:block;}
-.ig-lb-img-nav{position:fixed;top:50%;transform:translateY(-50%);background:rgba(250,248,246,0.92);border:none;color:var(--accent-light);font-size:2.2rem;width:52px;height:52px;border-radius:50%;cursor:pointer;z-index:5;display:none;align-items:center;justify-content:center;transition:background 0.2s,transform 0.2s;box-shadow:0 6px 18px -6px rgba(0,0,0,0.5);}
+.ig-lb-img-nav{position:fixed;top:50%;transform:translateY(-50%);background:rgba(250,248,246,0.92);border:none;color:var(--accent-light);font-size:2.2rem;width:52px;height:52px;border-radius:50%;cursor:pointer;z-index:5;display:none;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.35s ease,background 0.2s,transform 0.2s;box-shadow:0 6px 18px -6px rgba(0,0,0,0.5);}
 .ig-lb-img-nav:hover{background:#fff;transform:translateY(-50%) scale(1.08);}
 .ig-lb-img-nav.l{left:1.4rem;}
 .ig-lb-img-nav.r{right:1.4rem;}
 .ig-lightbox.mode-img.has-set .ig-lb-img-nav{display:flex;}
+.ig-lightbox.mode-img.has-set.nav-show .ig-lb-img-nav{opacity:1;pointer-events:auto;}
 
 /* IG LIGHTBOX — post mode (recreates the real IG post: header, swipeable images, caption) */
 .ig-lb-post{display:none;width:min(94vw,460px);max-height:90vh;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,0.65);flex-direction:column;}
@@ -980,22 +981,31 @@ var Lightbox=(function(){
     if(set && set.length>1){
       imgSet=set; imgIdx=idx||0;
       lb.classList.add('has-set');
+      showNav();
     }else{
       imgSet=null; imgIdx=0;
-      lb.classList.remove('has-set');
+      lb.classList.remove('has-set','nav-show');
     }
   }
-  var imgSet=null, imgIdx=0,
+  var imgSet=null, imgIdx=0, navHideTimer=null,
       lbImgPrev=document.getElementById('igLbImgPrev'),
       lbImgNext=document.getElementById('igLbImgNext');
+  function showNav(){
+    lb.classList.add('nav-show');
+    clearTimeout(navHideTimer);
+    navHideTimer=setTimeout(function(){ lb.classList.remove('nav-show'); }, 2000);
+  }
   function stepImg(dir){
     if(!imgSet) return;
     imgIdx=(imgIdx+dir+imgSet.length)%imgSet.length;
     var item=imgSet[imgIdx];
     lbImg.src=item.full; lbImg.alt=item.alt||'';
+    showNav();
   }
   lbImgPrev.onclick=function(e){ e.stopPropagation(); stepImg(-1); };
   lbImgNext.onclick=function(e){ e.stopPropagation(); stepImg(1); };
+  lb.addEventListener('mousemove', function(){ if(lb.classList.contains('has-set')) showNav(); });
+  lb.addEventListener('touchstart', function(){ if(lb.classList.contains('has-set')) showNav(); }, {passive:true});
 
   /* post mode — recreates a real Instagram carousel post: swipeable images + full caption */
   var lbPostTrack=document.getElementById('igLbPostTrack'),
@@ -1029,7 +1039,8 @@ var Lightbox=(function(){
   lbPostNext.onclick=function(){ if(postIdx<postImgs.length-1){ postIdx++; renderPost(); } };
 
   function close(){
-    lb.classList.remove('open','has-set');
+    lb.classList.remove('open','has-set','nav-show');
+    clearTimeout(navHideTimer);
     document.body.style.overflow='';
     if(lbPlayer && lbPlayer.stopVideo) lbPlayer.stopVideo();
   }
