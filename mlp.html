@@ -186,6 +186,11 @@ body.menu-open .menu-inner{transform:none;}
 .ig-lb-player{position:absolute;inset:0;width:100%;height:100%;border:0;}
 .ig-lb-img{display:none;max-width:92vw;max-height:86vh;border-radius:10px;box-shadow:0 30px 70px -20px rgba(0,0,0,0.65);object-fit:contain;}
 .ig-lightbox.mode-img .ig-lb-img{display:block;}
+.ig-lb-img-nav{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.14);border:none;color:#fff;font-size:2.2rem;width:52px;height:52px;border-radius:50%;cursor:pointer;z-index:5;display:none;align-items:center;justify-content:center;transition:background 0.2s;}
+.ig-lb-img-nav:hover{background:rgba(255,255,255,0.26);}
+.ig-lb-img-nav.l{left:1.4rem;}
+.ig-lb-img-nav.r{right:1.4rem;}
+.ig-lightbox.mode-img.has-set .ig-lb-img-nav{display:flex;}
 
 /* IG LIGHTBOX — post mode (recreates the real IG post: header, swipeable images, caption) */
 .ig-lb-post{display:none;width:min(94vw,460px);max-height:90vh;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,0.65);flex-direction:column;}
@@ -772,7 +777,7 @@ nav{padding:1.2rem 1.5rem;}
   <div class="chapter reveal" id="prodChapter">
     <div class="ch-head" onclick="toggleChapter(this)">
       <span class="ch-num">07</span>
-      <div class="ch-titles"><span class="ch-title">Product</span><span class="ch-teaser">The software I built to run my own business.</span></div>
+      <div class="ch-titles"><span class="ch-title">Internal App Product</span><span class="ch-teaser">The software I built to efficiently run the staining component of the business.</span></div>
       <span class="ch-tag">App · PDF</span>
       <span class="ch-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
     </div>
@@ -819,7 +824,9 @@ nav{padding:1.2rem 1.5rem;}
 <div class="ig-lightbox" id="igLightbox" aria-hidden="true">
   <button class="ig-lb-close" id="igLbClose" aria-label="Close">&times;</button>
   <div class="ig-lb-video"><div class="ig-lb-player" id="igLbPlayer"></div></div>
+  <button class="ig-lb-img-nav l" id="igLbImgPrev" aria-label="Previous image">&lsaquo;</button>
   <img class="ig-lb-img" id="igLbImg" src="" alt="">
+  <button class="ig-lb-img-nav r" id="igLbImgNext" aria-label="Next image">&rsaquo;</button>
   <div class="ig-lb-post" id="igLbPost">
     <div class="ig-lb-post-head">
       <img src="images/mlp_logo_sliver.png" alt="MLP">
@@ -966,11 +973,29 @@ var Lightbox=(function(){
         playerVars:{autoplay:1,modestbranding:1,rel:0,playsinline:1} });
     });
   }
-  function openImage(src,alt){
+  function openImage(src,alt,set,idx){
     lb.classList.add('open','mode-img'); lb.classList.remove('mode-video','mode-post');
     document.body.style.overflow='hidden';
     lbImg.src=src; lbImg.alt=alt||'';
+    if(set && set.length>1){
+      imgSet=set; imgIdx=idx||0;
+      lb.classList.add('has-set');
+    }else{
+      imgSet=null; imgIdx=0;
+      lb.classList.remove('has-set');
+    }
   }
+  var imgSet=null, imgIdx=0,
+      lbImgPrev=document.getElementById('igLbImgPrev'),
+      lbImgNext=document.getElementById('igLbImgNext');
+  function stepImg(dir){
+    if(!imgSet) return;
+    imgIdx=(imgIdx+dir+imgSet.length)%imgSet.length;
+    var item=imgSet[imgIdx];
+    lbImg.src=item.full; lbImg.alt=item.alt||'';
+  }
+  lbImgPrev.onclick=function(e){ e.stopPropagation(); stepImg(-1); };
+  lbImgNext.onclick=function(e){ e.stopPropagation(); stepImg(1); };
 
   /* post mode — recreates a real Instagram carousel post: swipeable images + full caption */
   var lbPostTrack=document.getElementById('igLbPostTrack'),
@@ -1004,7 +1029,7 @@ var Lightbox=(function(){
   lbPostNext.onclick=function(){ if(postIdx<postImgs.length-1){ postIdx++; renderPost(); } };
 
   function close(){
-    lb.classList.remove('open');
+    lb.classList.remove('open','has-set');
     document.body.style.overflow='';
     if(lbPlayer && lbPlayer.stopVideo) lbPlayer.stopVideo();
   }
@@ -1027,12 +1052,18 @@ var Lightbox=(function(){
   });
 })();
 
-/* Product — app + proposal cards open large in the shared lightbox */
+/* Product — app + proposal cards open large with chevron navigation within each set */
 (function(){
-  var cards=[].slice.call(document.querySelectorAll('.prod-card'));
-  cards.forEach(function(card){
-    var full=card.getAttribute('data-full'), alt=card.getAttribute('data-alt');
-    card.addEventListener('click', function(){ Lightbox.openImage(full, alt); });
+  var appCards=[].slice.call(document.querySelectorAll('#prodAppRow .prod-card'));
+  var appSet=appCards.map(function(c){ return {full:c.getAttribute('data-full'), alt:c.getAttribute('data-alt')}; });
+  appCards.forEach(function(card,i){
+    card.addEventListener('click', function(){ Lightbox.openImage(appSet[i].full, appSet[i].alt, appSet, i); });
+  });
+
+  var pdfCards=[].slice.call(document.querySelectorAll('#prodPdfRow .prod-card'));
+  var pdfSet=pdfCards.map(function(c){ return {full:c.getAttribute('data-full'), alt:c.getAttribute('data-alt')}; });
+  pdfCards.forEach(function(card,i){
+    card.addEventListener('click', function(){ Lightbox.openImage(pdfSet[i].full, pdfSet[i].alt, pdfSet, i); });
   });
 })();
 
