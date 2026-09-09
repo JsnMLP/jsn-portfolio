@@ -252,7 +252,7 @@ body.menu-open .menu-inner{transform:none;}
 .gd-nav{background:none;border:none;color:var(--accent-light);font-size:2.1rem;cursor:pointer;z-index:3;line-height:1;padding:0.3rem 0.5rem;transition:transform 0.2s;}
 .gd-nav:hover{transform:scale(1.12);}
 .gd-zoom-hint{position:absolute;top:0.7rem;left:50%;transform:translateX(-50%);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;color:#fff;z-index:3;pointer-events:none;}
-.gd-cap-bar{padding:0.35rem 1rem 0.6rem;text-align:center;}
+.gd-cap-bar{padding:0.35rem 1rem 0.6rem;text-align:center;position:relative;z-index:2;transition:margin-top 0.3s ease;}
 .gd-cap{font-size:0.8rem;color:#fff;font-style:italic;margin:0;min-height:1.2em;}
 
 /* EDITORIAL — press clippings */
@@ -993,6 +993,7 @@ window.startGdShowcase=(function(){
     var grid=document.getElementById('gdGrid'); if(!grid) return;
     var scrim=document.getElementById('gdScrim'), car=document.getElementById('gdCarousel'),
         stage=document.getElementById('gdCarStage'), cap=document.getElementById('gdCap'),
+        capBar=document.getElementById('gdCapBar'),
         prevBtn=document.getElementById('gdPrev'), nextBtn=document.getElementById('gdNext');
 
     GD.slice(0,9).forEach(function(item){
@@ -1053,6 +1054,13 @@ window.startGdShowcase=(function(){
       var centerEl=slots[2], item=GD[idx];
       centerEl.onclick=function(){ Lightbox.openImage(item.full, item.alt); };
     }
+    function pullCaptionToImage(){
+      var centerEl=slots[2]; if(!centerEl) return;
+      var innerBox=document.getElementById('gdStageWrap').querySelector('.gd-stage-inner').getBoundingClientRect();
+      var imgBox=centerEl.getBoundingClientRect();
+      var deadSpace=innerBox.bottom-imgBox.bottom;
+      capBar.style.marginTop=(-Math.max(0,deadSpace))+'px';
+    }
     function initCarousel(){
       stage.innerHTML=''; slots=[];
       for(var i=0;i<5;i++){
@@ -1064,6 +1072,7 @@ window.startGdShowcase=(function(){
       }
       bindCenterClick();
       cap.textContent=GD[idx].cap;
+      pullCaptionToImage();
     }
     function step(dir){
       swoosh();
@@ -1083,11 +1092,12 @@ window.startGdShowcase=(function(){
       slots.forEach(function(el,i){ place(el, i-2, false); });
       bindCenterClick();
       cap.textContent=GD[idx].cap;
+      setTimeout(pullCaptionToImage, 460);
     }
 
     prevBtn.onclick=function(){ step(-1); };
     nextBtn.onclick=function(){ step(1); };
-    window.addEventListener('resize', function(){ if(car.classList.contains('on')) slots.forEach(function(el,i){ place(el, i-2, true); }); });
+    window.addEventListener('resize', function(){ if(car.classList.contains('on')){ slots.forEach(function(el,i){ place(el, i-2, true); }); pullCaptionToImage(); } });
 
     reveal();
   };
