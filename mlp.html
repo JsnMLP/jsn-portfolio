@@ -272,6 +272,22 @@ body.menu-open .menu-inner{transform:none;}
 .ed-card.placeholder{cursor:default;}
 .ed-card.placeholder:hover{transform:none;}
 
+/* PRODUCT — proposal builder showcase */
+.prod-sub-label{font-size:0.62rem;letter-spacing:0.13em;text-transform:uppercase;font-weight:700;color:var(--text-muted-light);margin:1.7rem 0 0.8rem;}
+.prod-sub-label:first-of-type{margin-top:0.4rem;}
+.prod-row{display:flex;gap:1rem;overflow-x:auto;padding:0.2rem 0.2rem 0.7rem;}
+.prod-card{flex:0 0 auto;width:150px;cursor:pointer;transition:transform 0.25s ease;}
+.prod-card:hover{transform:translateY(-4px);}
+.prod-card.pdf{width:190px;}
+.prod-card img{width:100%;border-radius:8px;border:1px solid var(--border-light);box-shadow:0 10px 22px -14px rgba(28,35,41,0.35);display:block;}
+.prod-cap{font-size:0.72rem;color:var(--text-muted-light);font-weight:600;margin-top:0.55rem;line-height:1.3;}
+.prod-cta-row{margin-top:2.1rem;}
+.prod-cta{display:inline-flex;align-items:center;gap:0.7rem;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:600;color:var(--warm-white);text-decoration:none;padding:0.9rem 1.7rem;background:var(--charcoal);border:1px solid var(--charcoal);position:relative;overflow:hidden;transition:border-color 0.3s;}
+.prod-cta::before{content:'';position:absolute;top:0;left:-100%;right:0;bottom:0;background:var(--accent);transition:left 0.4s cubic-bezier(0.16,1,0.3,1);}
+.prod-cta:hover::before{left:0;}
+.prod-cta:hover{border-color:var(--accent);}
+.prod-cta span,.prod-cta svg{position:relative;z-index:1;}
+
 /* CLOSING NOTE */
 .mlp-close{background:var(--charcoal);padding:7rem 4rem 8rem;border-top:1px solid var(--border-dark);position:relative;}
 .close-quote{display:block;text-align:center;font-family:var(--font-quote);font-size:6rem;font-weight:500;line-height:1;color:var(--accent-light);margin-bottom:-1.6rem;}
@@ -752,6 +768,45 @@ nav{padding:1.2rem 1.5rem;}
     </div></div>
   </div>
 
+  <!-- 07 PRODUCT -->
+  <div class="chapter reveal" id="prodChapter">
+    <div class="ch-head" onclick="toggleChapter(this)">
+      <span class="ch-num">07</span>
+      <div class="ch-titles"><span class="ch-title">Product</span><span class="ch-teaser">The software I built to run my own business.</span></div>
+      <span class="ch-tag">App · PDF</span>
+      <span class="ch-chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+    </div>
+    <div class="ch-panel"><div class="ch-inner">
+
+      <div class="ig-lead">
+        <p>I don't just design the brand — I build the software that runs it. This is a proposal-generation tool I built solo for My Landscaping Project: walk a site, fill in a few numbers, and it produces a branded, client-ready PDF proposal in minutes. <strong>It's also the exact pricing engine behind the campaign in the META chapter.</strong></p>
+      </div>
+
+      <p class="prod-sub-label">How it works</p>
+      <div class="prod-row" id="prodAppRow">
+        <div class="prod-card" data-full="images/app1_full.jpg" data-alt="Client and property information entry"><img src="images/app1_thumb.jpg" alt="Client and property information entry"><p class="prod-cap">Client &amp; property info</p></div>
+        <div class="prod-card" data-full="images/app2_full.jpg" data-alt="Deck and fence mode with Google Drive sync"><img src="images/app2_thumb.jpg" alt="Deck and fence mode with Google Drive sync"><p class="prod-cap">Drive-synced, deck/fence modes</p></div>
+        <div class="prod-card" data-full="images/app3_full.jpg" data-alt="Property photo upload"><img src="images/app3_thumb.jpg" alt="Property photo upload"><p class="prod-cap">Photo upload</p></div>
+        <div class="prod-card" data-full="images/app4_full.jpg" data-alt="Preparation method and labour pricing"><img src="images/app4_thumb.jpg" alt="Preparation method and labour pricing"><p class="prod-cap">Prep method &amp; labour pricing</p></div>
+        <div class="prod-card" data-full="images/app5_full.jpg" data-alt="Discount and custom pricing overrides"><img src="images/app5_thumb.jpg" alt="Discount and custom pricing overrides"><p class="prod-cap">Discount &amp; price overrides</p></div>
+        <div class="prod-card" data-full="images/app6_full.jpg" data-alt="Auto-generated pricing summary"><img src="images/app6_thumb.jpg" alt="Auto-generated pricing summary"><p class="prod-cap">Auto-generated pricing</p></div>
+        <div class="prod-card" data-full="images/app7_full.jpg" data-alt="Save preview and export PDF"><img src="images/app7_thumb.jpg" alt="Save preview and export PDF"><p class="prod-cap">Save, preview &amp; export</p></div>
+      </div>
+
+      <p class="prod-sub-label">What it produces — a real client proposal</p>
+      <div class="prod-row" id="prodPdfRow">
+        <div class="prod-card pdf" data-full="images/pdfpage1_full.jpg" data-alt="Proposal page 1 - the problem"><img src="images/pdfpage1_thumb.jpg" alt="Proposal page 1 - the problem"><p class="prod-cap">The problem</p></div>
+        <div class="prod-card pdf" data-full="images/pdfpage2_full.jpg" data-alt="Proposal page 2 - the plan"><img src="images/pdfpage2_thumb.jpg" alt="Proposal page 2 - the plan"><p class="prod-cap">The plan</p></div>
+        <div class="prod-card pdf" data-full="images/pdfpage3_full.jpg" data-alt="Proposal page 3 - investment and close"><img src="images/pdfpage3_thumb.jpg" alt="Proposal page 3 - investment and close"><p class="prod-cap">The investment</p></div>
+      </div>
+
+      <div class="prod-cta-row">
+        <a href="https://staining-app.vercel.app/" target="_blank" rel="noopener" class="prod-cta"><span>View Live App</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+      </div>
+
+    </div></div>
+  </div>
+
 </section>
 
 <section class="mlp-close reveal">
@@ -966,6 +1021,15 @@ var Lightbox=(function(){
 /* Editorial — press clippings open large in the shared lightbox */
 (function(){
   var cards=[].slice.call(document.querySelectorAll('.ed-card:not(.placeholder)'));
+  cards.forEach(function(card){
+    var full=card.getAttribute('data-full'), alt=card.getAttribute('data-alt');
+    card.addEventListener('click', function(){ Lightbox.openImage(full, alt); });
+  });
+})();
+
+/* Product — app + proposal cards open large in the shared lightbox */
+(function(){
+  var cards=[].slice.call(document.querySelectorAll('.prod-card'));
   cards.forEach(function(card){
     var full=card.getAttribute('data-full'), alt=card.getAttribute('data-alt');
     card.addEventListener('click', function(){ Lightbox.openImage(full, alt); });
