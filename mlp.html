@@ -236,7 +236,8 @@ body.menu-open .menu-inner{transform:none;}
 
 /* GRAPHIC DESIGN — staged reveal, spotlight, 3D carousel */
 .gd-outer{margin-top:0.4rem;}
-.gd-stage-wrap{position:relative;width:100%;max-width:480px;margin:0 auto;aspect-ratio:1/1;}
+.gd-stage-wrap{position:relative;width:100%;max-width:480px;margin:0 auto;background:#0A0D0F;border-radius:8px;overflow:hidden;}
+.gd-stage-inner{position:relative;aspect-ratio:1/1;}
 .gd-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:8px;}
 .gd-tile{position:relative;overflow:hidden;border-radius:6px;opacity:0;transform:translateY(16px);transition:opacity 0.55s ease,transform 0.55s ease;background:var(--warm-mid);}
 .gd-tile.in{opacity:1;transform:translateY(0);}
@@ -251,7 +252,8 @@ body.menu-open .menu-inner{transform:none;}
 .gd-nav{background:none;border:none;color:var(--accent-light);font-size:2.1rem;cursor:pointer;z-index:3;line-height:1;padding:0.3rem 0.5rem;transition:transform 0.2s;}
 .gd-nav:hover{transform:scale(1.12);}
 .gd-zoom-hint{position:absolute;top:0.7rem;left:50%;transform:translateX(-50%);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;color:#fff;z-index:3;pointer-events:none;}
-.gd-cap{text-align:center;font-size:0.8rem;color:var(--text-muted-light);margin-top:1rem;font-style:italic;min-height:1.2em;}
+.gd-cap-bar{padding:0.9rem 1rem 1.1rem;text-align:center;}
+.gd-cap{font-size:0.8rem;color:#fff;font-style:italic;margin:0;min-height:1.2em;}
 
 /* EDITORIAL — press clippings */
 .ed-row{display:flex;gap:1.7rem;flex-wrap:wrap;margin-top:0.4rem;}
@@ -691,16 +693,18 @@ nav{padding:1.2rem 1.5rem;}
 
       <div class="gd-outer">
         <div id="gdStageWrap" class="gd-stage-wrap">
-          <div id="gdGrid" class="gd-grid"></div>
-          <div id="gdScrim" class="gd-scrim"></div>
-          <div id="gdCarousel" class="gd-carousel">
-            <span class="gd-zoom-hint">Click to zoom</span>
-            <button id="gdPrev" class="gd-nav l" aria-label="Previous piece">&lsaquo;</button>
-            <div id="gdCarStage" class="gd-car-stage"></div>
-            <button id="gdNext" class="gd-nav r" aria-label="Next piece">&rsaquo;</button>
+          <div class="gd-stage-inner">
+            <div id="gdGrid" class="gd-grid"></div>
+            <div id="gdScrim" class="gd-scrim"></div>
+            <div id="gdCarousel" class="gd-carousel">
+              <span class="gd-zoom-hint">Click to zoom</span>
+              <button id="gdPrev" class="gd-nav l" aria-label="Previous piece">&lsaquo;</button>
+              <div id="gdCarStage" class="gd-car-stage"></div>
+              <button id="gdNext" class="gd-nav r" aria-label="Next piece">&rsaquo;</button>
+            </div>
           </div>
+          <div id="gdCapBar" class="gd-cap-bar"><p id="gdCap" class="gd-cap"></p></div>
         </div>
-        <p id="gdCap" class="gd-cap"></p>
       </div>
 
     </div></div>
